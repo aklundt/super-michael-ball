@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class movementController : MonoBehaviour
+public class genericMovement : MonoBehaviour
 {
 
     float horizontalInput;
     float verticalInput;
+    float mouseHorizontalInput;
     public GameObject player;
     private Transform gravityTarget;
     public float tiltDegreeLimit;
@@ -30,6 +31,8 @@ public class movementController : MonoBehaviour
     void checkInput() {
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
+        mouseHorizontalInput = Input.GetAxis("Mouse X");
+        Debug.Log(mouseHorizontalInput);
     }
     void updateGravity() {
         updateGravityController();
@@ -39,7 +42,7 @@ public class movementController : MonoBehaviour
     }
     void updateGravityController() {
         transform.position = player.transform.position + new Vector3(0, 2, 0);
-        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x - verticalInput, transform.localEulerAngles.y, transform.localEulerAngles.z + horizontalInput);
+        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x - verticalInput, transform.localEulerAngles.y + mouseHorizontalInput * 1.5f, transform.localEulerAngles.z + horizontalInput);
     }
 
     void restrictGravityController() {
