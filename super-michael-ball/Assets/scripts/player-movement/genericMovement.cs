@@ -9,7 +9,6 @@ public class movementController : MonoBehaviour
     float horizontalInput;
     float verticalInput;
     public GameObject player;
-    public GameObject gravityController;
     private Transform gravityTarget;
     public float tiltDegreeLimit;
     public float stabilizationFactor;
