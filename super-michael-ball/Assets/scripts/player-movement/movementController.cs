@@ -38,12 +38,11 @@ public class movementController : MonoBehaviour
         stabilizeGravityController();
     }
     void updateGravityController() {
-        gravityController.transform.position = transform.position + new Vector3(0, 3, 0);
-        gravityController.transform.localEulerAngles = new Vector3(gravityController.transform.localEulerAngles.x + verticalInput, gravityController.transform.localEulerAngles.y, gravityController.transform.localEulerAngles.z - horizontalInput);
+        gravityController.transform.position = transform.position + new Vector3(0, 2, 0);
+        gravityController.transform.localEulerAngles = new Vector3(gravityController.transform.localEulerAngles.x - verticalInput, gravityController.transform.localEulerAngles.y, gravityController.transform.localEulerAngles.z + horizontalInput);
     }
 
     void restrictGravityController() {
-        //Debug.Log(gravityController.transform.localEulerAngles.x);
         float coterminalTiltLimit = 360 - tiltDegreeLimit;
 
         if (gravityController.transform.localEulerAngles.x > tiltDegreeLimit && gravityController.transform.localEulerAngles.x < 180) { 
