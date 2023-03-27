@@ -8,6 +8,7 @@ public class movementController : MonoBehaviour
 
     float horizontalInput;
     float verticalInput;
+    public GameObject player;
     public GameObject gravityController;
     private Transform gravityTarget;
     public float tiltDegreeLimit;
@@ -16,7 +17,7 @@ public class movementController : MonoBehaviour
     // start is called before the first frame update
     void Start()
     {
-        gravityTarget = gravityController.transform.GetChild(0);
+        gravityTarget = transform.GetChild(0);
     }
 
     // update is called once per frame
@@ -34,41 +35,42 @@ public class movementController : MonoBehaviour
     void updateGravity() {
         updateGravityController();
         restrictGravityController();
-        Physics.gravity = gravityTarget.position - gravityController.transform.position;
+        Physics.gravity = gravityTarget.position - transform.position;
         stabilizeGravityController();
     }
     void updateGravityController() {
-        gravityController.transform.position = transform.position + new Vector3(0, 2, 0);
-        gravityController.transform.localEulerAngles = new Vector3(gravityController.transform.localEulerAngles.x - verticalInput, gravityController.transform.localEulerAngles.y, gravityController.transform.localEulerAngles.z + horizontalInput);
+        transform.position = player.transform.position + new Vector3(0, 2, 0);
+        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x - verticalInput, transform.localEulerAngles.y, transform.localEulerAngles.z + horizontalInput);
     }
 
     void restrictGravityController() {
         float coterminalTiltLimit = 360 - tiltDegreeLimit;
 
-        if (gravityController.transform.localEulerAngles.x > tiltDegreeLimit && gravityController.transform.localEulerAngles.x < 180) { 
-            gravityController.transform.localEulerAngles = new Vector3(tiltDegreeLimit, gravityController.transform.localEulerAngles.y, gravityController.transform.localEulerAngles.z); 
+        if (transform.localEulerAngles.x > tiltDegreeLimit && transform.localEulerAngles.x < 180) { 
+            transform.localEulerAngles = new Vector3(tiltDegreeLimit, transform.localEulerAngles.y, transform.localEulerAngles.z); 
         }
-        if (gravityController.transform.localEulerAngles.x < coterminalTiltLimit && gravityController.transform.localEulerAngles.x > 180) { 
-            gravityController.transform.localEulerAngles = new Vector3(coterminalTiltLimit, gravityController.transform.localEulerAngles.y, gravityController.transform.localEulerAngles.z); 
+        if (transform.localEulerAngles.x < coterminalTiltLimit && transform.localEulerAngles.x > 180) { 
+            transform.localEulerAngles = new Vector3(coterminalTiltLimit, transform.localEulerAngles.y, transform.localEulerAngles.z); 
         }
-        if (gravityController.transform.localEulerAngles.z > tiltDegreeLimit && gravityController.transform.localEulerAngles.z < 180) { 
-            gravityController.transform.localEulerAngles = new Vector3(gravityController.transform.localEulerAngles.x, gravityController.transform.localEulerAngles.y, tiltDegreeLimit); 
+        if (transform.localEulerAngles.z > tiltDegreeLimit && transform.localEulerAngles.z < 180) { 
+            transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, tiltDegreeLimit); 
         }
-        if (gravityController.transform.localEulerAngles.z < coterminalTiltLimit && gravityController.transform.localEulerAngles.z > 180) { 
-            gravityController.transform.localEulerAngles = new Vector3(gravityController.transform.localEulerAngles.x, gravityController.transform.localEulerAngles.y, coterminalTiltLimit); 
+        if (transform.localEulerAngles.z < coterminalTiltLimit && transform.localEulerAngles.z > 180) { 
+            transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, coterminalTiltLimit); 
         }
     }
 
     void stabilizeGravityController() {
-        float x = gravityController.transform.localEulerAngles.x;
+        float x = transform.localEulerAngles.x;
         x = x / 360;
         if (x > 0.5) { x -= 1; }
-        float y = gravityController.transform.localEulerAngles.y;
-        y = y / 360;
-        if (y > 0.5) { y -= 1; }
-        float z = gravityController.transform.localEulerAngles.z;
+        float y = transform.localEulerAngles.y;
+        //y = y / 360;
+        //if (y > 0.5) { y -= 1; }
+        float z = transform.localEulerAngles.z;
         z = z / 360;
         if (z > 0.5) { z -= 1; }
-        gravityController.transform.localEulerAngles = stabilizationFactor * new Vector3(x, y, z) * 360;
+        transform.localEulerAngles = stabilizationFactor * new Vector3(x, 0, z) * 360;
+        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, y, transform.localEulerAngles.z);
     }
 }
