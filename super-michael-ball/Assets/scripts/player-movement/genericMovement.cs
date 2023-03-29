@@ -6,18 +6,24 @@ using System;
 public class genericMovement : MonoBehaviour
 {
 
-    float horizontalInput;
-    float verticalInput;
-    float mouseHorizontalInput;
+    enum axis { X,Y,Z }
+
+    float primaryHorizontalInput;
+    float primaryVerticalInput;
+    float secondaryHorizontalInput;
+    float secondaryVerticalInput;
     public GameObject player;
+    private Transform camera;
     private Transform gravityTarget;
-    public float tiltDegreeLimit;
-    public float stabilizationFactor;
+    public float gravityTiltLimit;
+    public float cameraTiltLimit;
+    public float gravityStabilizationFactor;
 
     // start is called before the first frame update
     void Start()
     {
         gravityTarget = transform.GetChild(0);
+        camera = transform.GetChild(1).GetChild(0);
     }
 
     // update is called once per frame
@@ -25,41 +31,72 @@ public class genericMovement : MonoBehaviour
     {
         checkInput();
         updateGravity();
+        updateCamera();
+    }
+
+    private void LateUpdate()
+    {
+        restrictRotation(camera.gameObject, cameraTiltLimit, axis.X);
     }
 
     // reads horizontal and vertical inputs and update values.
     void checkInput() {
-        horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
-        mouseHorizontalInput = Input.GetAxis("Mouse X");
-        Debug.Log(mouseHorizontalInput);
+        primaryHorizontalInput = Input.GetAxis("Primary Horizontal");
+        primaryVerticalInput = Input.GetAxis("Primary Vertical");
+        secondaryHorizontalInput = Input.GetAxis("Secondary Horizontal");
+        secondaryVerticalInput = Input.GetAxis("Secondary Vertical");
     }
     void updateGravity() {
         updateGravityController();
-        restrictGravityController();
+        restrictRotation(this.gameObject, gravityTiltLimit, axis.X);
+        restrictRotation(this.gameObject, gravityTiltLimit, axis.Z);
         Physics.gravity = gravityTarget.position - transform.position;
         stabilizeGravityController();
     }
+
+    void updateCamera() {
+        camera.localEulerAngles = new Vector3(camera.localEulerAngles.x + secondaryVerticalInput, camera.localEulerAngles.y, camera.localEulerAngles.z);
+    }
     void updateGravityController() {
         transform.position = player.transform.position + new Vector3(0, 2, 0);
-        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x - verticalInput, transform.localEulerAngles.y + mouseHorizontalInput * 1.5f, transform.localEulerAngles.z + horizontalInput);
+        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x - primaryVerticalInput, transform.localEulerAngles.y + secondaryHorizontalInput * 1.5f, transform.localEulerAngles.z + primaryHorizontalInput);
     }
 
-    void restrictGravityController() {
-        float coterminalTiltLimit = 360 - tiltDegreeLimit;
-
-        if (transform.localEulerAngles.x > tiltDegreeLimit && transform.localEulerAngles.x < 180) { 
-            transform.localEulerAngles = new Vector3(tiltDegreeLimit, transform.localEulerAngles.y, transform.localEulerAngles.z); 
+    void restrictRotation(GameObject restrictedObject, float degreeLimit, axis axis) {
+        float coterminalDegreeLimit = 360 - degreeLimit;
+        if (axis == axis.X)
+        {
+            if (restrictedObject.transform.localEulerAngles.x > degreeLimit && restrictedObject.transform.localEulerAngles.x < 180)
+            {
+                restrictedObject.transform.localEulerAngles = new Vector3(degreeLimit, restrictedObject.transform.localEulerAngles.y, restrictedObject.transform.localEulerAngles.z);
+            }
+            if (restrictedObject.transform.localEulerAngles.x < coterminalDegreeLimit && restrictedObject.transform.localEulerAngles.x > 180)
+            {
+                restrictedObject.transform.localEulerAngles = new Vector3(coterminalDegreeLimit, restrictedObject.transform.localEulerAngles.y, restrictedObject.transform.localEulerAngles.z);
+            }
         }
-        if (transform.localEulerAngles.x < coterminalTiltLimit && transform.localEulerAngles.x > 180) { 
-            transform.localEulerAngles = new Vector3(coterminalTiltLimit, transform.localEulerAngles.y, transform.localEulerAngles.z); 
+        else if (axis == axis.Y)
+        {
+            if (restrictedObject.transform.localEulerAngles.y > degreeLimit && restrictedObject.transform.localEulerAngles.y < 180)
+            {
+                restrictedObject.transform.localEulerAngles = new Vector3(restrictedObject.transform.localEulerAngles.x, degreeLimit, restrictedObject.transform.localEulerAngles.z);
+            }
+            if (restrictedObject.transform.localEulerAngles.y < coterminalDegreeLimit && restrictedObject.transform.localEulerAngles.y > 180)
+            {
+                restrictedObject.transform.localEulerAngles = new Vector3(restrictedObject.transform.localEulerAngles.x, coterminalDegreeLimit, restrictedObject.transform.localEulerAngles.z);
+            }
         }
-        if (transform.localEulerAngles.z > tiltDegreeLimit && transform.localEulerAngles.z < 180) { 
-            transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, tiltDegreeLimit); 
+        else if (axis == axis.Z) {
+            if (restrictedObject.transform.localEulerAngles.z > degreeLimit && restrictedObject.transform.localEulerAngles.z < 180)
+            {
+                restrictedObject.transform.localEulerAngles = new Vector3(restrictedObject.transform.localEulerAngles.x, restrictedObject.transform.localEulerAngles.y, degreeLimit);
+            }
+            if (restrictedObject.transform.localEulerAngles.z < coterminalDegreeLimit && restrictedObject.transform.localEulerAngles.z > 180)
+            {
+                restrictedObject.transform.localEulerAngles = new Vector3(restrictedObject.transform.localEulerAngles.x, restrictedObject.transform.localEulerAngles.y, coterminalDegreeLimit);
+            }
         }
-        if (transform.localEulerAngles.z < coterminalTiltLimit && transform.localEulerAngles.z > 180) { 
-            transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, coterminalTiltLimit); 
-        }
+        
     }
 
     void stabilizeGravityController() {
@@ -72,7 +109,7 @@ public class genericMovement : MonoBehaviour
         float z = transform.localEulerAngles.z;
         z = z / 360;
         if (z > 0.5) { z -= 1; }
-        transform.localEulerAngles = stabilizationFactor * new Vector3(x, 0, z) * 360;
+        transform.localEulerAngles = gravityStabilizationFactor * new Vector3(x, 0, z) * 360;
         transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, y, transform.localEulerAngles.z);
     }
 }
