@@ -769,9 +769,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1070265665}
-  gravityTiltLimit: 29
+  gravityTiltLimit: 45
   cameraTiltLimit: 10
-  gravityStabilizationFactor: 0.99
+  gravityStabilizationFactor: 0.97
+  cameraStabilizationFactor: 0.97
 --- !u!1 &1470819369
 GameObject:
   m_ObjectHideFlags: 0

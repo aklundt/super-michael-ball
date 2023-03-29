@@ -18,6 +18,7 @@ public class genericMovement : MonoBehaviour
     public float gravityTiltLimit;
     public float cameraTiltLimit;
     public float gravityStabilizationFactor;
+    public float cameraStabilizationFactor;
 
     // start is called before the first frame update
     void Start()
@@ -37,6 +38,7 @@ public class genericMovement : MonoBehaviour
     private void LateUpdate()
     {
         restrictRotation(camera.gameObject, cameraTiltLimit, axis.X);
+        stabilizeRotation(camera.gameObject, cameraStabilizationFactor, axis.X);
     }
 
     // reads horizontal and vertical inputs and update values.
@@ -52,10 +54,13 @@ public class genericMovement : MonoBehaviour
         restrictRotation(this.gameObject, gravityTiltLimit, axis.Z);
         Physics.gravity = gravityTarget.position - transform.position;
         stabilizeGravityController();
+        stabilizeRotation(this.gameObject, gravityStabilizationFactor, axis.X);
+        stabilizeRotation(this.gameObject, gravityStabilizationFactor, axis.Z);
     }
 
     void updateCamera() {
         camera.localEulerAngles = new Vector3(camera.localEulerAngles.x + secondaryVerticalInput, camera.localEulerAngles.y, camera.localEulerAngles.z);
+
     }
     void updateGravityController() {
         transform.position = player.transform.position + new Vector3(0, 2, 0);
@@ -112,4 +117,31 @@ public class genericMovement : MonoBehaviour
         transform.localEulerAngles = gravityStabilizationFactor * new Vector3(x, 0, z) * 360;
         transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, y, transform.localEulerAngles.z);
     }
+
+    void stabilizeRotation(GameObject stabilizedObject, float degreeLimit, axis axis) {
+        float x = stabilizedObject.transform.localEulerAngles.x;
+        float y = stabilizedObject.transform.localEulerAngles.y;
+        float z = stabilizedObject.transform.localEulerAngles.z;
+        if (axis == axis.X)
+        {
+            x = x / 360;
+            if (x > 0.5) { x -= 1; }
+            stabilizedObject.transform.localEulerAngles = gravityStabilizationFactor * new Vector3(x, 0, 0) * 360;
+            stabilizedObject.transform.localEulerAngles = new Vector3(stabilizedObject.transform.localEulerAngles.x, y, z);
+        }
+        else if (axis == axis.Y)
+        {
+            y = y / 360;
+            if (y > 0.5) { y -= 1; }
+            stabilizedObject.transform.localEulerAngles = gravityStabilizationFactor * new Vector3(0, y, 0) * 360;
+            stabilizedObject.transform.localEulerAngles = new Vector3(x, stabilizedObject.transform.localEulerAngles.y, z);
+        }
+        else if (axis == axis.Z) {
+            z = z / 360;
+            if (z > 0.5) { z -= 1; }
+            stabilizedObject.transform.localEulerAngles = gravityStabilizationFactor * new Vector3(0, 0, z) * 360;
+            stabilizedObject.transform.localEulerAngles = new Vector3(x, y, stabilizedObject.transform.localEulerAngles.z);
+        }
+    }
+
 }
