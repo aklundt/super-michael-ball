@@ -771,7 +771,7 @@ MonoBehaviour:
   player: {fileID: 1070265665}
   gravityTiltLimit: 45
   cameraTiltLimit: 10
-  gravityStabilizationFactor: 0.97
+  gravityStabilizationFactor: 0.99
   cameraStabilizationFactor: 0.97
 --- !u!1 &1470819369
 GameObject:
