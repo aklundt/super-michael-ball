@@ -31,12 +31,13 @@ public class genericMovement : MonoBehaviour
     void Update()
     {
         checkInput();
-        updateGravity();
+        updateGravityController();
         updateCamera();
     }
 
     private void LateUpdate()
     {
+        // clean up camera movement
         restrictRotation(camera.gameObject, cameraTiltLimit, axis.X);
         stabilizeRotation(camera.gameObject, cameraStabilizationFactor, axis.X);
     }
@@ -48,25 +49,26 @@ public class genericMovement : MonoBehaviour
         secondaryHorizontalInput = Input.GetAxis("Secondary Horizontal");
         secondaryVerticalInput = Input.GetAxis("Secondary Vertical");
     }
-    void updateGravity() {
-        updateGravityController();
+
+    // rotates gravity-controller (or this.) object in response to primaryAxisInputs and secondaryHorizontalInput.
+    // restricts gravity-controller's axis rotations, updates gravity, and stabilizes the object.
+    void updateGravityController()
+    {
+        transform.position = player.transform.position + new Vector3(0, 2, 0);
+        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x - primaryVerticalInput, transform.localEulerAngles.y + secondaryHorizontalInput * 1.5f, transform.localEulerAngles.z + primaryHorizontalInput);
         restrictRotation(this.gameObject, gravityTiltLimit, axis.X);
         restrictRotation(this.gameObject, gravityTiltLimit, axis.Z);
         Physics.gravity = gravityTarget.position - transform.position;
-        stabilizeGravityController();
         stabilizeRotation(this.gameObject, gravityStabilizationFactor, axis.X);
         stabilizeRotation(this.gameObject, gravityStabilizationFactor, axis.Z);
     }
-
+    // rotates camera in response to secondaryVerticalInput.
+    // method is unnecessary because it's one line of code but it looks nicer.
     void updateCamera() {
         camera.localEulerAngles = new Vector3(camera.localEulerAngles.x + secondaryVerticalInput, camera.localEulerAngles.y, camera.localEulerAngles.z);
-
     }
-    void updateGravityController() {
-        transform.position = player.transform.position + new Vector3(0, 2, 0);
-        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x - primaryVerticalInput, transform.localEulerAngles.y + secondaryHorizontalInput * 1.5f, transform.localEulerAngles.z + primaryHorizontalInput);
-    }
-
+    
+    // reusable function to restrict an objects rotation in one axis by changing the rotation to the desired limit when the rotation surpasses it.
     void restrictRotation(GameObject restrictedObject, float degreeLimit, axis axis) {
         float coterminalDegreeLimit = 360 - degreeLimit;
         if (axis == axis.X)
@@ -104,20 +106,7 @@ public class genericMovement : MonoBehaviour
         
     }
 
-    void stabilizeGravityController() {
-        float x = transform.localEulerAngles.x;
-        x = x / 360;
-        if (x > 0.5) { x -= 1; }
-        float y = transform.localEulerAngles.y;
-        //y = y / 360;
-        //if (y > 0.5) { y -= 1; }
-        float z = transform.localEulerAngles.z;
-        z = z / 360;
-        if (z > 0.5) { z -= 1; }
-        transform.localEulerAngles = gravityStabilizationFactor * new Vector3(x, 0, z) * 360;
-        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, y, transform.localEulerAngles.z);
-    }
-
+    // reusable function to stabilize an objects rotation in one axis by mulitplying the rotation by a decimal factor (cameraStabilizationFactor).
     void stabilizeRotation(GameObject stabilizedObject, float degreeLimit, axis axis) {
         float x = stabilizedObject.transform.localEulerAngles.x;
         float y = stabilizedObject.transform.localEulerAngles.y;
