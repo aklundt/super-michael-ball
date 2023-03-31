@@ -30,7 +30,7 @@ public class dialogue : MonoBehaviour
 
     private string returnLine()
     {
-        using (FileStream fs = File.OpenRead(@"\Users\ak1036178\Desktop\GitTest\super-michael-ball\super-michael-ball\Assets\scripts\dialogue\dialogueLines.txt"))
+        using (FileStream fs = File.OpenRead(@"Assets\scripts\dialogue\dialogueLines.txt"))
         {
             byte[] b = new byte[1024];
             UTF8Encoding temp = new UTF8Encoding(true);
