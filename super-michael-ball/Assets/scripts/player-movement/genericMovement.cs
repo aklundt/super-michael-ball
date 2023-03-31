@@ -13,7 +13,7 @@ public class genericMovement : MonoBehaviour
     float secondaryHorizontalInput;
     float secondaryVerticalInput;
     public GameObject player;
-    private Transform camera;
+    private Transform cameraObj;
     private Transform gravityTarget;
     public float gravityTiltLimit;
     public float cameraTiltLimit;
@@ -24,7 +24,7 @@ public class genericMovement : MonoBehaviour
     void Start()
     {
         gravityTarget = transform.GetChild(0);
-        camera = transform.GetChild(1).GetChild(0);
+        cameraObj = transform.GetChild(1).GetChild(0);
     }
 
     // update is called once per frame
@@ -38,8 +38,8 @@ public class genericMovement : MonoBehaviour
     private void LateUpdate()
     {
         // clean up camera movement
-        restrictRotation(camera.gameObject, cameraTiltLimit, axis.X);
-        stabilizeRotation(camera.gameObject, cameraStabilizationFactor, axis.X);
+        restrictRotation(cameraObj.gameObject, cameraTiltLimit, axis.X);
+        stabilizeRotation(cameraObj.gameObject, cameraStabilizationFactor, axis.X);
     }
 
     // reads horizontal and vertical inputs and update values.
@@ -65,7 +65,7 @@ public class genericMovement : MonoBehaviour
     // rotates camera in response to secondaryVerticalInput.
     // method is unnecessary because it's one line of code but it looks nicer.
     void updateCamera() {
-        camera.localEulerAngles = new Vector3(camera.localEulerAngles.x + secondaryVerticalInput, camera.localEulerAngles.y, camera.localEulerAngles.z);
+        cameraObj.localEulerAngles = new Vector3(cameraObj.localEulerAngles.x + secondaryVerticalInput, cameraObj.localEulerAngles.y, cameraObj.localEulerAngles.z);
     }
     
     // reusable function to restrict an objects rotation in one axis by changing the rotation to the desired limit when the rotation surpasses it.
