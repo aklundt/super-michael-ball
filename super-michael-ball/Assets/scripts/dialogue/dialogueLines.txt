@@ -1,0 +1,10 @@
+genericNPC: {
+	"how are you?"
+	"you don't talk much..."
+	"okay weirdo!"
+}
+otherGenericNPC: {
+	"you smell really bad!"
+	"stinky!"
+	"YUCKY!"
+}
