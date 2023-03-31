@@ -6,6 +6,9 @@ public class dialogue : MonoBehaviour
 {
     public GameObject player;
     public GameObject cameraHolder;
+    public GameObject gameManager;
+    public int dialogueStartLine;
+    public int dialogueEndLine;
 
     // Start is called before the first frame update
     void Start()
@@ -17,7 +20,7 @@ public class dialogue : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return) && (player.transform.position - transform.position).magnitude <= 6) {
-            Debug.Log("hi");
+            gameManager.movementEnabled = false;
         }
     }
 }

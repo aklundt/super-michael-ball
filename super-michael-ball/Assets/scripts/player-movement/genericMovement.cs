@@ -13,6 +13,7 @@ public class genericMovement : MonoBehaviour
     float secondaryHorizontalInput;
     float secondaryVerticalInput;
     public GameObject player;
+    public GameObject gameManager;
     private Transform cameraObj;
     private Transform gravityTarget;
     public float gravityTiltLimit;
@@ -54,10 +55,12 @@ public class genericMovement : MonoBehaviour
     // restricts gravity-controller's axis rotations, updates gravity, and stabilizes the object.
     void updateGravityController()
     {
-        transform.position = player.transform.position + new Vector3(0, 2, 0);
-        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x - primaryVerticalInput, transform.localEulerAngles.y + secondaryHorizontalInput * 1.5f, transform.localEulerAngles.z + primaryHorizontalInput);
-        restrictRotation(this.gameObject, gravityTiltLimit, axis.X);
-        restrictRotation(this.gameObject, gravityTiltLimit, axis.Z);
+        if (gameManager.movementEnabled) {
+            transform.position = player.transform.position + new Vector3(0, 2, 0);
+            transform.localEulerAngles = new Vector3(transform.localEulerAngles.x - primaryVerticalInput, transform.localEulerAngles.y + secondaryHorizontalInput * 1.5f, transform.localEulerAngles.z + primaryHorizontalInput);
+            restrictRotation(this.gameObject, gravityTiltLimit, axis.X);
+            restrictRotation(this.gameObject, gravityTiltLimit, axis.Z);
+        }
         Physics.gravity = gravityTarget.position - transform.position;
         stabilizeRotation(this.gameObject, gravityStabilizationFactor, axis.X);
         stabilizeRotation(this.gameObject, gravityStabilizationFactor, axis.Z);
@@ -65,7 +68,9 @@ public class genericMovement : MonoBehaviour
     // rotates camera in response to secondaryVerticalInput.
     // method is unnecessary because it's one line of code but it looks nicer.
     void updateCamera() {
-        cameraObj.localEulerAngles = new Vector3(cameraObj.localEulerAngles.x + secondaryVerticalInput, cameraObj.localEulerAngles.y, cameraObj.localEulerAngles.z);
+        if (gameManager.movementEnabled) {
+            cameraObj.localEulerAngles = new Vector3(cameraObj.localEulerAngles.x + secondaryVerticalInput, cameraObj.localEulerAngles.y, cameraObj.localEulerAngles.z);
+        }
     }
     
     // reusable function to restrict an objects rotation in one axis by changing the rotation to the desired limit when the rotation surpasses it.
