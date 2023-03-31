@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -419,6 +419,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1045087954}
+  - component: {fileID: 1045087955}
   m_Layer: 0
   m_Name: game-manager
   m_TagString: Untagged
@@ -441,6 +442,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1045087955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1045087953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72013efcb947626478f8a114a1126c7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementEnabled: 0
 --- !u!1 &1070265665
 GameObject:
   m_ObjectHideFlags: 0
@@ -702,6 +716,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1070265665}
+  gameManager: {fileID: 1045087953}
   gravityTiltLimit: 45
   cameraTiltLimit: 20
   gravityStabilizationFactor: 0.99
@@ -915,4 +930,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1070265665}
-  cameraHolder: {fileID: 0}
+  cameraHolder: {fileID: 1281858619}
+  gameManager: {fileID: 1045087953}
+  dialogueStartLine: 0
+  dialogueEndLine: 0

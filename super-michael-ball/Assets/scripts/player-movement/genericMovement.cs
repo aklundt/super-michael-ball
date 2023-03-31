@@ -55,8 +55,8 @@ public class genericMovement : MonoBehaviour
     // restricts gravity-controller's axis rotations, updates gravity, and stabilizes the object.
     void updateGravityController()
     {
-        if (gameManager.movementEnabled) {
-            transform.position = player.transform.position + new Vector3(0, 2, 0);
+        transform.position = player.transform.position + new Vector3(0, 2, 0);
+        if (gameManager.GetComponent<gameManager>().movementEnabled) {
             transform.localEulerAngles = new Vector3(transform.localEulerAngles.x - primaryVerticalInput, transform.localEulerAngles.y + secondaryHorizontalInput * 1.5f, transform.localEulerAngles.z + primaryHorizontalInput);
             restrictRotation(this.gameObject, gravityTiltLimit, axis.X);
             restrictRotation(this.gameObject, gravityTiltLimit, axis.Z);
@@ -68,7 +68,7 @@ public class genericMovement : MonoBehaviour
     // rotates camera in response to secondaryVerticalInput.
     // method is unnecessary because it's one line of code but it looks nicer.
     void updateCamera() {
-        if (gameManager.movementEnabled) {
+        if (gameManager.GetComponent<gameManager>().movementEnabled) {
             cameraObj.localEulerAngles = new Vector3(cameraObj.localEulerAngles.x + secondaryVerticalInput, cameraObj.localEulerAngles.y, cameraObj.localEulerAngles.z);
         }
     }

@@ -20,7 +20,7 @@ public class dialogue : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return) && (player.transform.position - transform.position).magnitude <= 6) {
-            gameManager.movementEnabled = false;
+            gameManager.GetComponent<gameManager>().movementEnabled = false;
         }
     }
 }
