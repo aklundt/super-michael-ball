@@ -44,8 +44,8 @@ public class genericMovement : MonoBehaviour
 
     // reads horizontal and vertical inputs and update values.
     void checkInput() {
-        primaryHorizontalInput = Input.GetAxis("Primary Horizontal");
-        primaryVerticalInput = Input.GetAxis("Primary Vertical");
+        primaryHorizontalInput = Input.GetAxis("Horizontal");
+        primaryVerticalInput = Input.GetAxis("Vertical");
         secondaryHorizontalInput = Input.GetAxis("Secondary Horizontal");
         secondaryVerticalInput = Input.GetAxis("Secondary Vertical");
     }

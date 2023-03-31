@@ -1,13 +1,15 @@
 trackSelection = true
-refreshSearchWindowsInPlayMode = false
 fetchPreview = true
-defaultFlags = 0
+wantsMore = false
 keepOpen = false
 queryFolder = "Assets"
 onBoardingDoNotAskAgain = true
 showPackageIndexes = false
 showStatusBar = false
 scopes = {
+	"last_search.8788AF05" = ""
+	"OpenInspectorPreview.8788AF05" = "0"
+	"currentGroup.8788AF05" = "scene"
 }
 providers = {
 	adb = {
@@ -51,20 +53,15 @@ providers = {
 		defaultAction = null
 	}
 }
-objectSelectors = {
-}
 recentSearches = [
 ]
 searchItemFavorites = [
 ]
 savedSearchesSortOrder = 0
 showSavedSearchPanel = false
-hideTabs = false
 expandedQueries = [
 ]
 queryBuilder = false
 ignoredProperties = "id;name;classname;imagecontentshash"
 helperWidgetCurrentArea = "all"
 disabledIndexers = ""
-minIndexVariations = 2
-findProviderIndexHelper = true
