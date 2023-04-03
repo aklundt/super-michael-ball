@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class gameManager : MonoBehaviour
 {
+
+    public float primaryHorizontalInput;
+    public float primaryVerticalInput;
+    public float secondaryHorizontalInput;
+    public float secondaryVerticalInput;
+
     public bool movementEnabled;
     public int frameRate;
 
@@ -16,6 +22,15 @@ public class gameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        checkInput();
         Application.targetFrameRate = frameRate;
+    }
+
+    void checkInput()
+    {
+        primaryHorizontalInput = Input.GetAxis("Horizontal");
+        primaryVerticalInput = Input.GetAxis("Vertical");
+        secondaryHorizontalInput = Input.GetAxis("Secondary Horizontal");
+        secondaryVerticalInput = Input.GetAxis("Secondary Vertical");
     }
 }

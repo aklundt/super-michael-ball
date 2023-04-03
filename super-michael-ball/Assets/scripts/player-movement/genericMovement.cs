@@ -19,7 +19,7 @@ public class genericMovement : MonoBehaviour
     public float cameraStabilizationFactor;
 
     public GameObject player;
-    public GameObject gameManager;
+    public gameManager gameManager;
 
     private Transform cameraObj;
     private Transform gravityTarget;
@@ -29,22 +29,23 @@ public class genericMovement : MonoBehaviour
     {
         gravityTarget = transform.GetChild(0);
         cameraObj = transform.GetChild(1).GetChild(0);
+        
     }
 
     // update is called once per frame
     void Update()
     {
-        checkInput();
+        grabInput();
         applyInput();
     }
 
 
     // reads horizontal and vertical inputs and update values.
-    void checkInput() {
-        primaryHorizontalInput = Input.GetAxis("Horizontal");
-        primaryVerticalInput = Input.GetAxis("Vertical");
-        secondaryHorizontalInput = Input.GetAxis("Secondary Horizontal");
-        secondaryVerticalInput = Input.GetAxis("Secondary Vertical");
+    void grabInput() {
+        primaryHorizontalInput = gameManager.primaryHorizontalInput;
+        primaryVerticalInput = gameManager.primaryVerticalInput;
+        secondaryHorizontalInput = gameManager.secondaryHorizontalInput;
+        secondaryVerticalInput = gameManager.secondaryVerticalInput;
     }
     
     // updates gravity-controller and camera with input
@@ -54,8 +55,10 @@ public class genericMovement : MonoBehaviour
         stabilizeRotation(this.gameObject, axis.X, gravStabilizationFactor);
         stabilizeRotation(this.gameObject, axis.Z, gravStabilizationFactor);
         stabilizeRotation(cameraObj.gameObject, axis.X, cameraStabilizationFactor);
+
+        transform.position = player.transform.position + new Vector3(0, 2, 0);
         // if movement is enabled update gameobjects
-        if (gameManager.GetComponent<gameManager>().movementEnabled)
+        if (gameManager.movementEnabled)
         {
             // update gravity-controller
             Vector3 gravControllerRotation = new Vector3(
@@ -70,7 +73,6 @@ public class genericMovement : MonoBehaviour
                 Mathf.Clamp(toNegativeDegrees(gravControllerRotation.z), -gravityTiltLimit, gravityTiltLimit)
                 );
             transform.localEulerAngles = gravControllerRotation;
-            transform.position = player.transform.position + new Vector3(0, 2, 0);
 
             // update camera
             Vector3 cameraRotation = new Vector3(
@@ -86,10 +88,10 @@ public class genericMovement : MonoBehaviour
                 );
             cameraObj.localEulerAngles = cameraRotation;
             
-            // update physics
-            Physics.gravity = gravityTarget.position - transform.position;
         }
-        
+        // update physics
+        Physics.gravity = gravityTarget.position - transform.position;
+
     }
     // uses a factor to gradually rotate an object back towards 0.
     void stabilizeRotation(GameObject obj, axis axis, float factor) {
