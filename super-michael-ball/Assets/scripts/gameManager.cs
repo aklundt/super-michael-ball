@@ -11,12 +11,14 @@ public class gameManager : MonoBehaviour
     public float secondaryVerticalInput;
 
     public bool movementEnabled;
+    public bool NPCTalking;
     public int frameRate;
 
     // Start is called before the first frame update
     void Start()
     {
         movementEnabled = true;
+        NPCTalking = false;
     }
 
     // Update is called once per frame
