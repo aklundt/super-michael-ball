@@ -12,4 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8720fdebcd5f224db406639b073cd7c, type: 3}
   m_Name: test
   m_EditorClassIdentifier: 
-  dialogue: []
+  dialogue:
+  - 'a
+
+    b
+
+    c'
+  - 'd
+
+    e
+
+    f'
