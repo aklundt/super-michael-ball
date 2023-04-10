@@ -13,13 +13,7 @@ MonoBehaviour:
   m_Name: test
   m_EditorClassIdentifier: 
   dialogue:
-  - 'a
-
-    b
-
-    c'
-  - 'd
-
-    e
-
-    f'
+  - "hey michael, it's me!! NPC-A!                \nyou remember me right?               
+    \nright?                "
+  - Your sinful soul is beyond salvation and you know no peace or pain, only the
+    cold of repentance is over.

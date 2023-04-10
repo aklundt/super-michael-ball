@@ -7,7 +7,7 @@ using TMPro;
 
 public class dialogueTyper : MonoBehaviour
 {
-
+    private int typeSpeed = 35;
     public Coroutine Run(string textToType, TextMeshProUGUI dialogueBoxTMP)
     {
         return StartCoroutine(TypeText(textToType, dialogueBoxTMP));
@@ -20,7 +20,12 @@ public class dialogueTyper : MonoBehaviour
 
         while (charIndex < textToType.Length)
         {
-            timeWriting += Time.deltaTime * 35;
+            typeSpeed = 35;
+            if (Input.GetKey(KeyCode.Space))
+            {
+                typeSpeed = 90;
+            }
+            timeWriting += Time.deltaTime * typeSpeed;
             charIndex = Mathf.Clamp(Mathf.FloorToInt(timeWriting), 0, textToType.Length);
 
             dialogueBoxTMP.text = textToType.Substring(0, charIndex);
