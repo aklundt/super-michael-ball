@@ -5,6 +5,7 @@ using System.IO;
 using UnityEngine;
 using TMPro;
 
+
 public class dialogueTyper : MonoBehaviour
 {
     private int typeSpeed = 35;
@@ -21,7 +22,7 @@ public class dialogueTyper : MonoBehaviour
         while (charIndex < textToType.Length)
         {
             typeSpeed = 35;
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKey(KeyCode.Space) || Input.GetButton("XboxA"))
             {
                 typeSpeed = 90;
             }

@@ -1091,7 +1091,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1070265665}
   dialogueBox: {fileID: 1240928274}
-  cameraObj: {fileID: 0}
+  cameraObj: {fileID: 1381653845}
   gameManager: {fileID: 1045087955}
   dialogueBoxTMP: {fileID: 1814981238}
   testDialogue: {fileID: 11400000, guid: 2b083a050979778459c7ce4ab1a4411d, type: 2}
@@ -1434,7 +1434,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit

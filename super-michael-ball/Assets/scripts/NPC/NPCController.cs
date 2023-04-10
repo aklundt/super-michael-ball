@@ -11,7 +11,8 @@ public class NPCController : MonoBehaviour
     public gameManager gameManager;
     public TextMeshProUGUI dialogueBoxTMP;
     public DialogueObject testDialogue;
-    private dialogueTyper dialogueTyper; 
+    private dialogueTyper dialogueTyper;
+    private bool xboxA; 
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +23,8 @@ public class NPCController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return) && (player.transform.position - transform.position).magnitude <= 6 && !gameManager.NPCTalking)
+        xboxA = Input.GetButtonDown("XboxA");
+        if (Input.GetKeyDown(KeyCode.Return) && (player.transform.position - transform.position).magnitude <= 6 && !gameManager.NPCTalking || Input.GetButtonDown("XboxA") && (player.transform.position - transform.position).magnitude <= 6 && !gameManager.NPCTalking)
         {
             StartCoroutine(StepThroughDialogue(testDialogue));
         }
@@ -30,10 +32,10 @@ public class NPCController : MonoBehaviour
 
     private void openDialogueBox () // it will make sense that this is a function after I beat Grayson into making pretty little animations. Maybe he wants to put these into dialogueBox.cs
     {
-        player.GetComponent<Rigidbody>().angularDrag = 300;
-        //StartCoroutine(alignCameraToNPC());
-        gameManager.GetComponent<gameManager>().movementEnabled = false;
         gameManager.NPCTalking = true;
+        player.GetComponent<Rigidbody>().angularDrag = 300;
+        StartCoroutine(alignCameraToNPC());
+        gameManager.GetComponent<gameManager>().movementEnabled = false;
         dialogueBox.SetActive(true);
     }
 
@@ -60,32 +62,22 @@ public class NPCController : MonoBehaviour
         return rotationToNPC;
     }
 
-    /*private IEnumerator alignCameraToNPC () // IDK make this smoothly do it
+    private IEnumerator alignCameraToNPC () // IDK make this smoothly do it
     {
-        while (Math.Round(cameraObj.transform.rotation.y, 2) != Math.Round(rotationToNPC(), 2))
+        while (gameManager.NPCTalking)
         {
-            Debug.Log(rotationToNPC());
-            if (cameraObj.transform.rotation.y < rotationToNPC())
-            {
-                Debug.Log("a");
-                yield return cameraObj.transform.rotation = Quaternion.Euler(cameraObj.transform.rotation.x, , cameraObj.transform.rotation.y);
-            } else
-            {
-                Debug.Log("b");
-                yield return cameraObj.transform.rotation = Quaternion.Euler(cameraObj.transform.rotation.x, cameraObj.transform.rotation.y + 1f, cameraObj.transform.rotation.y);
-            }
+            yield return cameraObj.transform.rotation = Quaternion.Euler(cameraObj.transform.rotation.x, rotationToNPC(), cameraObj.transform.rotation.y);
         }
         yield break;
-    }*/
+    }
 
     private IEnumerator StepThroughDialogue(DialogueObject dialogueObject)
     {
         openDialogueBox();
         foreach (string dialogue in dialogueObject.Dialogue)
         {
-            cameraObj.transform.rotation = Quaternion.Euler(cameraObj.transform.rotation.x, rotationToNPC(), cameraObj.transform.rotation.y);
             yield return dialogueTyper.Run(dialogue, dialogueBoxTMP);
-            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return)); // idk how you want me to access the a button on controller
+            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || xboxA); 
         }
         closeDialogueBox();
         yield break;
