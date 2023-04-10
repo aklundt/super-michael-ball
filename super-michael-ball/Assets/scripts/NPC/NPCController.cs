@@ -30,20 +30,21 @@ public class NPCController : MonoBehaviour
         }
     }
 
-    private void openDialogueBox () // it will make sense that this is a function after I beat Grayson into making pretty little animations. Maybe he wants to put these into dialogueBox.cs
+
+    private void openDialogueBox () // I will beat Grayson into making pretty little animations. Maybe we should move these to a different script
     {
-        gameManager.NPCTalking = true;
-        player.GetComponent<Rigidbody>().angularDrag = 300;
-        StartCoroutine(alignCameraToNPC());
+        player.GetComponent<Rigidbody>().drag = 50;
         gameManager.GetComponent<gameManager>().movementEnabled = false;
+        gameManager.NPCTalking = true;
         dialogueBox.SetActive(true);
+        StartCoroutine(alignCameraToNPC());
     }
 
     private void closeDialogueBox() // ^ last comment
     {
-        player.GetComponent<Rigidbody>().angularDrag = 0.05f;
         gameManager.GetComponent<gameManager>().movementEnabled = true;
         gameManager.GetComponent<gameManager>().NPCTalking = false;
+        player.GetComponent<Rigidbody>().drag = .5;
         dialogueBoxTMP.text = "";
         dialogueBox.SetActive(false);
     }
@@ -62,13 +63,18 @@ public class NPCController : MonoBehaviour
         return rotationToNPC;
     }
 
-    private IEnumerator alignCameraToNPC () // IDK make this smoothly do it
+    private IEnumerator alignCameraToNPC ()
     {
-        while (gameManager.NPCTalking)
+        Debug.Log(Math.Round(rotationToNPC()) + " " + Math.Round(cameraObj.transform.rotation.y));
+        while (gameManager.NPCTalking && gameManager.NPCTalking && Math.Round(rotationToNPC(), 1) != Math.Round(cameraObj.transform.rotation.y, 1))
         {
-            yield return cameraObj.transform.rotation = Quaternion.Euler(cameraObj.transform.rotation.x, rotationToNPC(), cameraObj.transform.rotation.y);
-        }
-        yield break;
+            yield return cameraObj.transform.rotation = Quaternion.Slerp(cameraObj.transform.rotation, Quaternion.Euler(cameraObj.transform.rotation.x, rotationToNPC(), cameraObj.transform.rotation.y), 0.02f);
+        }/*
+        if (gameManager.NPCTalking && Math.Round(rotationToNPC()) == Math.Round(cameraObj.transform.rotation.y))
+        {
+            gameManager.NPCTalking = false;
+            yield return player.GetComponent<Rigidbody>().drag = 0.5f;
+        }*/
     }
 
     private IEnumerator StepThroughDialogue(DialogueObject dialogueObject)
