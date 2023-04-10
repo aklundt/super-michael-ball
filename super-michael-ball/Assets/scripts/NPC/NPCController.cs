@@ -60,7 +60,7 @@ public class NPCController : MonoBehaviour
         return rotationToNPC;
     }
 
-    /*private IEnumerator alignCameraToNPC ()
+    /*private IEnumerator alignCameraToNPC () // IDK make this smoothly do it
     {
         while (Math.Round(cameraObj.transform.rotation.y, 2) != Math.Round(rotationToNPC(), 2))
         {
