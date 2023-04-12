@@ -66,17 +66,14 @@ public class NPCController : MonoBehaviour
 
     private IEnumerator alignCameraToNPC ()
     {
-        while (Math.Round(rotationToNPC()) != Math.Round(cameraObj.transform.eulerAngles.y))
+        while (Math.Round(rotationToNPC()) != Math.Round(UnityEditor.TransformUtils.GetInspectorRotation(cameraObj.transform).y))
         {
-            yield return cameraObj.transform.rotation = Quaternion.Slerp(cameraObj.transform.rotation, Quaternion.Euler(cameraObj.transform.rotation.x, rotationToNPC(), cameraObj.transform.rotation.y), 0.5f);
+            yield return cameraObj.transform.rotation = Quaternion.Slerp(cameraObj.transform.rotation, Quaternion.Euler(cameraObj.transform.rotation.x, rotationToNPC(), cameraObj.transform.rotation.y), 0.05f);
         }
-
-        if (Math.Round(rotationToNPC()) == Math.Round(cameraObj.transform.eulerAngles.y))
-        {
-            player.GetComponent<Rigidbody>().drag = 0.5f;
-            gameManager.movementEnabled = true;
-            yield break;
-        }
+        player.GetComponent<Rigidbody>().drag = 0.5f;
+        gameManager.movementEnabled = true;
+        yield break;
+        
     }
 
     private IEnumerator StepThroughDialogue(DialogueObject dialogueObject)
