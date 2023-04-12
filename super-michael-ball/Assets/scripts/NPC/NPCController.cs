@@ -26,6 +26,7 @@ public class NPCController : MonoBehaviour
         xboxA = Input.GetButtonDown("XboxA");
         if (Input.GetKeyDown(KeyCode.Return) && (player.transform.position - transform.position).magnitude <= 6 && !gameManager.NPCTalking || Input.GetButtonDown("XboxA") && (player.transform.position - transform.position).magnitude <= 6 && !gameManager.NPCTalking)
         {
+            openDialogueBox();
             StartCoroutine(StepThroughDialogue(testDialogue));
         }
     }
@@ -44,7 +45,7 @@ public class NPCController : MonoBehaviour
     {
         gameManager.GetComponent<gameManager>().movementEnabled = true;
         gameManager.GetComponent<gameManager>().NPCTalking = false;
-        player.GetComponent<Rigidbody>().drag = .5;
+        player.GetComponent<Rigidbody>().drag = .5f;
         dialogueBoxTMP.text = "";
         dialogueBox.SetActive(false);
     }
@@ -65,21 +66,21 @@ public class NPCController : MonoBehaviour
 
     private IEnumerator alignCameraToNPC ()
     {
-        Debug.Log(Math.Round(rotationToNPC()) + " " + Math.Round(cameraObj.transform.rotation.y));
-        while (gameManager.NPCTalking && gameManager.NPCTalking && Math.Round(rotationToNPC(), 1) != Math.Round(cameraObj.transform.rotation.y, 1))
+        while (Math.Round(rotationToNPC()) != Math.Round(cameraObj.transform.eulerAngles.y))
         {
-            yield return cameraObj.transform.rotation = Quaternion.Slerp(cameraObj.transform.rotation, Quaternion.Euler(cameraObj.transform.rotation.x, rotationToNPC(), cameraObj.transform.rotation.y), 0.02f);
-        }/*
-        if (gameManager.NPCTalking && Math.Round(rotationToNPC()) == Math.Round(cameraObj.transform.rotation.y))
+            yield return cameraObj.transform.rotation = Quaternion.Slerp(cameraObj.transform.rotation, Quaternion.Euler(cameraObj.transform.rotation.x, rotationToNPC(), cameraObj.transform.rotation.y), 0.5f);
+        }
+
+        if (Math.Round(rotationToNPC()) == Math.Round(cameraObj.transform.eulerAngles.y))
         {
-            gameManager.NPCTalking = false;
-            yield return player.GetComponent<Rigidbody>().drag = 0.5f;
-        }*/
+            player.GetComponent<Rigidbody>().drag = 0.5f;
+            gameManager.movementEnabled = true;
+            yield break;
+        }
     }
 
     private IEnumerator StepThroughDialogue(DialogueObject dialogueObject)
     {
-        openDialogueBox();
         foreach (string dialogue in dialogueObject.Dialogue)
         {
             yield return dialogueTyper.Run(dialogue, dialogueBoxTMP);
