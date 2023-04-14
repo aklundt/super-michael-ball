@@ -6,12 +6,13 @@ using UnityEngine;
 public class NPCController : MonoBehaviour
 {
     public GameObject player;
+    public GameObject gravityController;
     public GameObject dialogueBox;
-    public GameObject cameraObj;
-    public gameManager gameManager;
     public TextMeshProUGUI dialogueBoxTMP;
-    public DialogueObject testDialogue;
+    public TextMeshProUGUI dialogueCharacterName;
+    public DialogueObject dialogueLines;
     private dialogueTyper dialogueTyper;
+    public gameManager gameManager;
     private bool xboxA; 
 
     // Start is called before the first frame update
@@ -27,7 +28,7 @@ public class NPCController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return) && (player.transform.position - transform.position).magnitude <= 6 && !gameManager.NPCTalking || Input.GetButtonDown("XboxA") && (player.transform.position - transform.position).magnitude <= 6 && !gameManager.NPCTalking)
         {
             openDialogueBox();
-            StartCoroutine(StepThroughDialogue(testDialogue));
+            StartCoroutine(StepThroughDialogue(dialogueLines));
         }
     }
 
@@ -35,15 +36,14 @@ public class NPCController : MonoBehaviour
     private void openDialogueBox () // I will beat Grayson into making pretty little animations. Maybe we should move these to a different script
     {
         player.GetComponent<Rigidbody>().drag = 50;
-        gameManager.GetComponent<gameManager>().movementEnabled = false;
         gameManager.NPCTalking = true;
         dialogueBox.SetActive(true);
+        dialogueCharacterName.text = dialogueLines.ActorName;
         StartCoroutine(alignCameraToNPC());
     }
 
     private void closeDialogueBox() // ^ last comment
     {
-        gameManager.GetComponent<gameManager>().movementEnabled = true;
         gameManager.GetComponent<gameManager>().NPCTalking = false;
         player.GetComponent<Rigidbody>().drag = .5f;
         dialogueBoxTMP.text = "";
@@ -66,9 +66,9 @@ public class NPCController : MonoBehaviour
 
     private IEnumerator alignCameraToNPC ()
     {
-        while (Math.Round(rotationToNPC()) != Math.Round(UnityEditor.TransformUtils.GetInspectorRotation(cameraObj.transform).y))
+        while (Math.Round(rotationToNPC()) != Math.Round(UnityEditor.TransformUtils.GetInspectorRotation(gravityController.transform).y))
         {
-            yield return cameraObj.transform.rotation = Quaternion.Slerp(cameraObj.transform.rotation, Quaternion.Euler(cameraObj.transform.rotation.x, rotationToNPC(), cameraObj.transform.rotation.y), 0.05f);
+            yield return gravityController.transform.rotation = Quaternion.Slerp(gravityController.transform.rotation, Quaternion.Euler(gravityController.transform.rotation.x, rotationToNPC(), gravityController.transform.rotation.y), 0.05f);
         }
         player.GetComponent<Rigidbody>().drag = 0.5f;
         gameManager.movementEnabled = true;
