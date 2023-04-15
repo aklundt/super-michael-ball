@@ -55,7 +55,7 @@ public class trainCutscene : MonoBehaviour
         while (sceneOngoing)
         {
             yield return new WaitForSeconds(2);
-            Instantiate(twinklePrefab, player.transform.position, Quaternion.Euler(-120, 0, 0)); 
+            GameObject twinkleObj = Instantiate(twinklePrefab, player.transform.position, Quaternion.Euler(-120, 0, 0));
             player.SetActive(false);
             sceneOngoing = false;
             yield return new WaitForSeconds(2);
@@ -65,7 +65,7 @@ public class trainCutscene : MonoBehaviour
         while (fadingOut) {
             fadingWhiteMaterial.material.color = new Color(1f, 1f, 1f, fadingWhiteMaterial.material.color.a + (1f * Time.deltaTime));
             if (fadingWhiteMaterial.material.color.a >= 1) { fadingOut = false; }
-            new WaitForSeconds(1);
+            new WaitForSeconds(0.5f);
             // Scene transition?
             yield return null;
         }
