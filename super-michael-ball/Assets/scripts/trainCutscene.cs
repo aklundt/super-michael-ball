@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using TMPro;
 using UnityEngine;
 
 public class trainCutscene : MonoBehaviour
@@ -14,6 +15,7 @@ public class trainCutscene : MonoBehaviour
     public GameObject trainObj;
     public GameObject twinklePrefab;
     public GameObject whiteboxObj;
+    public DialogueObject footStuckLines;
     private bool sceneOngoing;
 
     // Start is called before the first frame update
@@ -34,12 +36,17 @@ public class trainCutscene : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        gameManager.GetComponent<narratorDialogue>().Run(footStuckLines);
         gameManager.movementEnabled = false;
         cutsceneCameraObj.SetActive(true);
         cameraObj.SetActive(false);
         sceneOngoing = true;
-        StartCoroutine(trainMoving());
-        StartCoroutine(endCutscene());
+        while (!gameManager.GetComponent<narratorDialogue>().dialogueFinished) { }
+        if (gameManager.GetComponent<narratorDialogue>().dialogueFinished) {
+            StartCoroutine(trainMoving());
+            StartCoroutine(endCutscene());
+        }
+        
     }
 
     private IEnumerator trainMoving() {
