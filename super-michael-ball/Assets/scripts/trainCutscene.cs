@@ -38,17 +38,20 @@ public class trainCutscene : MonoBehaviour
     {
         gameManager.GetComponent<narratorDialogue>().Run(footStuckLines);
         gameManager.movementEnabled = false;
+        cutsceneCameraObj.SetActive(true);
+        cameraObj.SetActive(false);
+        sceneOngoing = true;
+        StartCoroutine(startStuffAfterDialogueFinished());
     }
 
     private IEnumerator startStuffAfterDialogueFinished () {
         while (!gameManager.GetComponent<narratorDialogue>().dialogueFinished) {        
             yield return null;
+            player.GetComponent<Rigidbody>().angularDrag = 50;
         }
-        cutsceneCameraObj.SetActive(true);
-        cameraObj.SetActive(false);
-        sceneOngoing = true;
         StartCoroutine(trainMoving());
         StartCoroutine(endCutscene());
+        player.GetComponent<Rigidbody>().angularDrag = 0.5f;
         yield break;
     }
 
