@@ -16,7 +16,7 @@ public class trainCutscene : MonoBehaviour
     public GameObject twinklePrefab;
     public GameObject whiteboxObj;
     public DialogueObject footStuckLines;
-    private bool sceneOngoing;
+    [SerializeField] private bool sceneOngoing;
 
     // Start is called before the first frame update
     void Start()
@@ -41,17 +41,17 @@ public class trainCutscene : MonoBehaviour
         cutsceneCameraObj.SetActive(true);
         cameraObj.SetActive(false);
         sceneOngoing = true;
+        player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        player.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         StartCoroutine(startStuffAfterDialogueFinished());
     }
 
     private IEnumerator startStuffAfterDialogueFinished () {
         while (!gameManager.GetComponent<narratorDialogue>().dialogueFinished) {        
             yield return null;
-            player.GetComponent<Rigidbody>().angularDrag = 50;
         }
         StartCoroutine(trainMoving());
         StartCoroutine(endCutscene());
-        player.GetComponent<Rigidbody>().angularDrag = 0.5f;
         yield break;
     }
 
