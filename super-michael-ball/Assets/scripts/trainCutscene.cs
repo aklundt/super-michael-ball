@@ -38,15 +38,18 @@ public class trainCutscene : MonoBehaviour
     {
         gameManager.GetComponent<narratorDialogue>().Run(footStuckLines);
         gameManager.movementEnabled = false;
+    }
+
+    private IEnumerator startStuffAfterDialogueFinished () {
+        while (!gameManager.GetComponent<narratorDialogue>().dialogueFinished) {        
+            yield return null;
+        }
         cutsceneCameraObj.SetActive(true);
         cameraObj.SetActive(false);
         sceneOngoing = true;
-        while (!gameManager.GetComponent<narratorDialogue>().dialogueFinished) { }
-        if (gameManager.GetComponent<narratorDialogue>().dialogueFinished) {
-            StartCoroutine(trainMoving());
-            StartCoroutine(endCutscene());
-        }
-        
+        StartCoroutine(trainMoving());
+        StartCoroutine(endCutscene());
+        yield break;
     }
 
     private IEnumerator trainMoving() {
