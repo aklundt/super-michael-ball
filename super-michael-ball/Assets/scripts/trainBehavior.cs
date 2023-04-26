@@ -18,7 +18,6 @@ public class trainBehavior : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("yaoyjsojrtoijdfgoij");
         Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
         Vector3 direction = collision.transform.position - transform.position;
         direction = new Vector3(direction.x, direction.y + 10, direction.z);
