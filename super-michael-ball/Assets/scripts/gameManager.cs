@@ -9,7 +9,6 @@ public class gameManager : MonoBehaviour
     public float primaryVerticalInput;
     public float secondaryHorizontalInput;
     public float secondaryVerticalInput;
-    public bool startEnabled;
 
     public bool movementEnabled;
     public bool NPCTalking;
@@ -18,7 +17,6 @@ public class gameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (startEnabled) { movementEnabled = true; }
         NPCTalking = false;
     }
 

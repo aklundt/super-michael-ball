@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class trainCutscene : MonoBehaviour
 {
@@ -80,7 +81,9 @@ public class trainCutscene : MonoBehaviour
             if (fadingWhiteMaterial.material.color.a >= 1) { fadingOut = false; }
             new WaitForSeconds(0.5f);
             // Scene transition?
+            
             yield return null;
         }
+        SceneManager.LoadScene(2);
     }
 }

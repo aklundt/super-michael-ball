@@ -233,7 +233,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 85086586}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 43.5, z: -23.7}
+  m_LocalPosition: {x: 0, y: 93.8, z: -36.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -295,7 +295,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: fd94839ff3178734f80d303be4b15ecd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -447,15 +447,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 565197879}
-  m_LocalRotation: {x: 0.13165084, y: 0, z: 0, w: 0.9912962}
-  m_LocalPosition: {x: 0, y: 1.92, z: -7}
+  m_LocalRotation: {x: 0.10826432, y: 0.07885973, z: -0.00861565, w: 0.99095196}
+  m_LocalPosition: {x: -3.7, y: 1.25, z: -7.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 347923535}
   m_Father: {fileID: 85086591}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 15.13, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 12.47, y: 9.1, z: 0}
 --- !u!1 &1033343093
 GameObject:
   m_ObjectHideFlags: 0
@@ -659,14 +659,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1266832481}
-  m_LocalRotation: {x: 0.043619405, y: 0, z: 0, w: 0.9990483}
-  m_LocalPosition: {x: 0, y: -17.36, z: 0}
+  m_LocalRotation: {x: 0.041178133, y: 0, z: 0, w: 0.9991518}
+  m_LocalPosition: {x: 0, y: -17.2, z: 0}
   m_LocalScale: {x: 33.61, y: 33.61, z: 33.61}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 5, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 4.72, y: 0, z: 0}
 --- !u!1001 &1703480426
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -847,7 +847,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1755882617}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 40.5, z: -23.7}
+  m_LocalPosition: {x: 0, y: 93.8, z: -36.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -994,7 +994,6 @@ MonoBehaviour:
   primaryVerticalInput: 0
   secondaryHorizontalInput: 0
   secondaryVerticalInput: 0
-  startEnabled: 0
   movementEnabled: 0
   NPCTalking: 0
   frameRate: 0
