@@ -10,6 +10,7 @@ public class tigerScene : MonoBehaviour
     private Rigidbody playerRb;
     public gameManager gameManager;
     public GameObject tiger;
+    private float tigerEndCutsceneZPos = -26;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,7 +44,7 @@ public class tigerScene : MonoBehaviour
     }
 
     private IEnumerator introduceTiger() {
-        while (tiger.transform.position.z < -16) {
+        while (tiger.transform.position.z < tigerEndCutsceneZPos) {
             tiger.transform.position = new Vector3(tiger.transform.position.x, tiger.transform.position.y, tiger.transform.position.z + 1 * Time.deltaTime);
             yield return null;
         }
@@ -89,7 +90,7 @@ public class tigerScene : MonoBehaviour
     private IEnumerator turnCameraSlowlyToTiger() {
         
         Transform cameraHolder = gravityController.transform.GetChild(1);
-        while (tiger.transform.position.z < -16) {
+        while (tiger.transform.position.z < tigerEndCutsceneZPos) {
             cameraHolder.transform.LookAt(tiger.transform);
             yield return null;
         }
