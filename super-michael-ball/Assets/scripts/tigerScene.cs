@@ -102,6 +102,7 @@ public class tigerScene : MonoBehaviour
         yield return new WaitForSeconds(time);
         forceCameraSettings();
         gameManager.movementEnabled = true;
+
         StopAllCoroutines();
     }
 
