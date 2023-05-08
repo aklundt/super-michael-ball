@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class gameManager : MonoBehaviour
 {
+    public GameObject player;
+    public GameObject cameraOBJ;
 
     public float primaryHorizontalInput;
     public float primaryVerticalInput;
