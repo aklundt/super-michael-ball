@@ -9,7 +9,6 @@ public class cameraMovement : MonoBehaviour
 
     GameObject cameraOBJ;
 
-    private float slerpSpeed = 0.05f;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,11 +21,30 @@ public class cameraMovement : MonoBehaviour
         
     }
 
-    public IEnumerator moveCameraTo(GameObject destination) {
-        while (transform.position != destination.transform.position) {
+    public IEnumerator moveCameraTo(GameObject destination, float slerpSpeed) {
+        float time = 0;
+        while (time < 3) {
             transform.position = Vector3.Slerp(transform.position, destination.transform.position, slerpSpeed);
             yield return null;
+            time += Time.deltaTime;
         }
+        transform.position = destination.transform.position;
         yield return null;
+    }
+    public IEnumerator rotateTo(GameObject destination, float slerpSpeed) { 
+        Quaternion lookDirection = Quaternion.LookRotation(destination.transform.position - transform.position);
+        float time = 0;
+        while (time < 3) {
+            lookDirection = Quaternion.Euler(Quaternion.LookRotation(destination.transform.position - transform.position).eulerAngles + new Vector3(0, 0, 0));
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookDirection, slerpSpeed);
+            Debug.Log("rotating");
+            time += Time.deltaTime;
+            yield return null;
+        }
+        transform.rotation = lookDirection;
+        yield return null;
+    }
+    public void makeSeeThrough(float opacity, float speed) { 
+        
     }
 }

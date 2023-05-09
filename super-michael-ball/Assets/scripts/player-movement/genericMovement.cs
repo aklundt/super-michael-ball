@@ -54,12 +54,14 @@ public class genericMovement : MonoBehaviour
     void applyInput() {
         stabilizeRotation(this.gameObject, axis.X, gravStabilizationFactor);
         stabilizeRotation(this.gameObject, axis.Z, gravStabilizationFactor);
-        stabilizeRotation(cameraObj.gameObject, axis.X, cameraStabilizationFactor);
+        
 
         transform.position = player.transform.position + new Vector3(0, 2, 0);
         // if movement is enabled update gameobjects
         if (gameManager.movementEnabled)
         {
+            stabilizeRotation(cameraObj.gameObject, axis.X, cameraStabilizationFactor);
+
             // update gravity-controller
             Vector3 gravControllerRotation = new Vector3(
                 -primaryVerticalInput * Time.deltaTime * 700, 
