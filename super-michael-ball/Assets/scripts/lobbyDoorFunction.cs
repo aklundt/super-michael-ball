@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
+using UnityEngine.SceneManagement;
 
 public class lobbyDoorFunction : MonoBehaviour
 {
@@ -12,13 +13,16 @@ public class lobbyDoorFunction : MonoBehaviour
     GameObject player;
     VideoPlayer whiteTransition;
 
+    //public String sceneDestination;
     public GameObject cameraEmpty;
+    public int doorNumber;
 
     // Start is called before the first frame update
     void Start()
     {
         cameraOBJ = gameManager.GetComponent<gameManager>().cameraOBJ;
         player = gameManager.GetComponent<gameManager>().player;
+        whiteTransition = gameManager.GetComponent<gameManager>().whiteTransition;
     }
 
     // Update is called once per frame
@@ -29,11 +33,14 @@ public class lobbyDoorFunction : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        gameManager.GetComponent<gameManager>().movementEnabled = false;
-        StartCoroutine(cameraOBJ.GetComponent<cameraMovement>().moveCameraTo(cameraEmpty, 0.03f));
-        StartCoroutine(cameraOBJ.GetComponent<cameraMovement>().rotateTo(transform.gameObject, 0.03f));
-        StartCoroutine(disablePlayer());
-        StartCoroutine(doorEnter());
+        if (doorNumber >= gameManager.GetComponent<gameManager>().gameStatus) {
+            gameManager.GetComponent<gameManager>().movementEnabled = false;
+            StartCoroutine(cameraOBJ.GetComponent<cameraMovement>().moveCameraTo(cameraEmpty, 0.03f));
+            StartCoroutine(cameraOBJ.GetComponent<cameraMovement>().rotateTo(transform.gameObject, 0.03f));
+            StartCoroutine(disablePlayer());
+            StartCoroutine(doorEnter());
+        }
+        
     }
 
     private IEnumerator disablePlayer() {
@@ -60,8 +67,14 @@ public class lobbyDoorFunction : MonoBehaviour
 
     private IEnumerator transitionVideoAndSceneChange() {
         yield return new WaitForSeconds(1);
+        Debug.Log("should be playing");
         whiteTransition.Play();
-        yield return null;
+        yield return new WaitForSeconds(0.5f);
+        while (whiteTransition.isPlaying) {
+            yield return null;
+        }
+        //SceneManager.LoadScene(sceneDestination);
     }
+    
 
 }

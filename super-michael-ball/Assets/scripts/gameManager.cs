@@ -1,16 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class gameManager : MonoBehaviour
 {
     public GameObject player;
     public GameObject cameraOBJ;
+    public RenderTexture transitionRenderer;
+    public VideoPlayer whiteTransition;
 
     public float primaryHorizontalInput;
     public float primaryVerticalInput;
     public float secondaryHorizontalInput;
     public float secondaryVerticalInput;
+
+    public int gameStatus;
 
     public bool movementEnabled;
     public bool NPCTalking;
@@ -20,6 +25,7 @@ public class gameManager : MonoBehaviour
     void Start()
     {
         NPCTalking = false;
+        transitionRenderer.Release();
     }
 
     // Update is called once per frame
