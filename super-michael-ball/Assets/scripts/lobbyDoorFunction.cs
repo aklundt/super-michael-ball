@@ -12,8 +12,9 @@ public class lobbyDoorFunction : MonoBehaviour
     GameObject cameraOBJ;
     GameObject player;
     VideoPlayer whiteTransition;
+    
 
-    //public String sceneDestination;
+    public string sceneDestination;
     public GameObject cameraEmpty;
     public int doorNumber;
 
@@ -23,30 +24,33 @@ public class lobbyDoorFunction : MonoBehaviour
         cameraOBJ = gameManager.GetComponent<gameManager>().cameraOBJ;
         player = gameManager.GetComponent<gameManager>().player;
         whiteTransition = gameManager.GetComponent<gameManager>().whiteTransition;
+        if (doorNumber <= gameManager.GetComponent<gameManager>().gameStatus) {
+            gameObject.GetComponent<MeshCollider>().isTrigger = true;
+            gameObject.GetComponent<MeshRenderer>().material = gameManager.GetComponent<gameManager>().glowingWhite;
+            transform.GetChild(0).gameObject.SetActive(true);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (doorNumber >= gameManager.GetComponent<gameManager>().gameStatus) {
-            gameManager.GetComponent<gameManager>().movementEnabled = false;
-            StartCoroutine(cameraOBJ.GetComponent<cameraMovement>().moveCameraTo(cameraEmpty, 0.03f));
-            StartCoroutine(cameraOBJ.GetComponent<cameraMovement>().rotateTo(transform.gameObject, 0.03f));
-            StartCoroutine(disablePlayer());
-            StartCoroutine(doorEnter());
-        }
+          gameManager.GetComponent<gameManager>().movementEnabled = false;
+          StartCoroutine(cameraOBJ.GetComponent<cameraMovement>().moveCameraTo(cameraEmpty, 0.03f));
+          StartCoroutine(cameraOBJ.GetComponent<cameraMovement>().rotateTo(transform.gameObject, 0.03f));
+          StartCoroutine(disablePlayer());
+          StartCoroutine(doorEnter());
         
     }
 
     private IEnumerator disablePlayer() {
         float time = 0;
+        //MeshRenderer playerRenderer = player.GetComponent<MeshRenderer>();
         while (time < 1) {
-
+            //playerRenderer.material.color = new Color(1f, 1f, 1f, playerRenderer.material.color.a + (1f * Time.deltaTime));
             time += Time.deltaTime;
             yield return null;
         }
@@ -66,14 +70,13 @@ public class lobbyDoorFunction : MonoBehaviour
     }
 
     private IEnumerator transitionVideoAndSceneChange() {
-        yield return new WaitForSeconds(1);
         Debug.Log("should be playing");
         whiteTransition.Play();
         yield return new WaitForSeconds(0.5f);
         while (whiteTransition.isPlaying) {
             yield return null;
         }
-        //SceneManager.LoadScene(sceneDestination);
+        SceneManager.LoadScene(sceneDestination);
     }
     
 

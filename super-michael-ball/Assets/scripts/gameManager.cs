@@ -9,6 +9,7 @@ public class gameManager : MonoBehaviour
     public GameObject cameraOBJ;
     public RenderTexture transitionRenderer;
     public VideoPlayer whiteTransition;
+    public Material glowingWhite;
 
     public float primaryHorizontalInput;
     public float primaryVerticalInput;
