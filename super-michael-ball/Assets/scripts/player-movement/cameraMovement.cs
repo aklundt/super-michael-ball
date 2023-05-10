@@ -44,6 +44,7 @@ public class cameraMovement : MonoBehaviour
         transform.rotation = lookDirection;
         yield return null;
     }
+
     public void makeSeeThrough(float opacity, float speed) { 
         
     }
