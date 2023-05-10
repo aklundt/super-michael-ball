@@ -13,6 +13,8 @@ public class genericMovement : MonoBehaviour
     float primaryVerticalInput;
     float secondaryHorizontalInput;
     float secondaryVerticalInput;
+    bool xboxA;
+    bool xboxRightBumper;
     public float gravityTiltLimit;
     public float cameraTiltLimit;
     public float gravStabilizationFactor;
@@ -46,6 +48,8 @@ public class genericMovement : MonoBehaviour
         primaryVerticalInput = gameManager.primaryVerticalInput;
         secondaryHorizontalInput = gameManager.secondaryHorizontalInput;
         secondaryVerticalInput = gameManager.secondaryVerticalInput;
+        xboxA = Input.GetButtonDown("XboxA");
+        xboxRightBumper = Input.GetButton("XboxRightBumper");
     }
     
     // updates gravity-controller and camera with input
@@ -93,6 +97,16 @@ public class genericMovement : MonoBehaviour
         }
         // update physics
         Physics.gravity = gravityTarget.position - transform.position;
+
+        // reset player position when shortcut is pressed
+        if (xboxRightBumper && xboxA)
+        {
+            player.transform.position = new Vector3 (0, 1, 0);
+            player.transform.rotation = new Quaternion(0, 0, 0, 1);
+            player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            player.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+            transform.rotation = new Quaternion(0, 0, 0, 1);
+        }
 
     }
     // uses a factor to gradually rotate an object back towards 0.
