@@ -25,7 +25,7 @@ public class NPCController : MonoBehaviour
     void Update()
     {
         xboxA = Input.GetButtonDown("XboxA");
-        if (Input.GetKeyDown(KeyCode.Return) && (player.transform.position - transform.position).magnitude <= 6 && !gameManager.NPCTalking || Input.GetButtonDown("XboxA") && (player.transform.position - transform.position).magnitude <= 6 && !gameManager.NPCTalking)
+        if (Input.GetKeyDown(KeyCode.Return) && (player.transform.position - transform.position).magnitude <= 6 && !gameManager.textBoxOngoing || Input.GetButtonDown("XboxA") && (player.transform.position - transform.position).magnitude <= 6 && !gameManager.textBoxOngoing)
         {
             openDialogueBox();
             StartCoroutine(StepThroughDialogue(dialogueLines));
@@ -36,7 +36,7 @@ public class NPCController : MonoBehaviour
     private void openDialogueBox () // I will beat Grayson into making pretty little animations. Maybe we should move these to a different script
     {
         player.GetComponent<Rigidbody>().drag = 50;
-        gameManager.NPCTalking = true;
+        gameManager.textBoxOngoing = true;
         dialogueBox.SetActive(true);
         dialogueCharacterName.text = dialogueLines.ActorName;
         StartCoroutine(alignCameraToNPC());
@@ -44,7 +44,7 @@ public class NPCController : MonoBehaviour
 
     private void closeDialogueBox() // ^ last comment
     {
-        gameManager.GetComponent<gameManager>().NPCTalking = false;
+        gameManager.GetComponent<gameManager>().textBoxOngoing = false;
         player.GetComponent<Rigidbody>().drag = .5f;
         dialogueBoxTMP.text = "";
         dialogueBox.SetActive(false);

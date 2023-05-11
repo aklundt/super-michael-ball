@@ -10,12 +10,19 @@ public class gameManager : MonoBehaviour
     public GameObject player;
     public GameObject cameraOBJ;
     public GameObject gravityController;
+    public GameObject deathPlane;
     public RenderTexture transitionRenderer;
     public VideoPlayer whiteTransition;
     public RenderTexture staticInRenderer;
     public VideoPlayer staticIn;
     public RenderTexture staticOutRenderer;
     public VideoPlayer staticOut;
+    public RenderTexture doorTransitionRenderer;
+    public VideoPlayer doorTransition;
+    public RenderTexture textBoxRenderer;
+    public VideoPlayer textBox;
+    public VideoClip textBoxOpen;
+    public VideoClip textBoxClose;
 
     public float primaryHorizontalInput;
     public float primaryVerticalInput;
@@ -30,19 +37,20 @@ public class gameManager : MonoBehaviour
     public int frameRate;
 
     public Vector3 resetPosition;
+    public float resetRotationY;
     public bool movementEnabled;
 
 
-    public bool NPCTalking;
-  
+    public bool textBoxOngoing;
 
     // Start is called before the first frame update
     void Start()
     {
-        NPCTalking = false;
         //transitionRenderer.Release();
         staticInRenderer.Release();
         staticOutRenderer.Release();
+        textBoxRenderer.Release();
+        doorTransitionRenderer.Release();
         StartCoroutine(transitionStatic(false, true, true));
     }
 
@@ -65,14 +73,23 @@ public class gameManager : MonoBehaviour
         xboxRightBumperDown = Input.GetButtonDown("XboxRightBumper");
     }
 
+    public void teleportPlayerTo(Vector3 position, Vector3 rotation) { 
+        player.transform.position = position;
+        player.transform.rotation = Quaternion.Euler(rotation);
+    }
     void resetPlayer() {
         player.transform.position = resetPosition;
-        player.transform.rotation = Quaternion.Euler(Vector3.zero);
+        player.transform.rotation = Quaternion.Euler(new Vector3(0, resetRotationY, 0));
         player.GetComponent<Rigidbody>().velocity = Vector3.zero;
         player.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-        gravityController.transform.rotation = Quaternion.Euler(Vector3.zero);
+        gravityController.transform.rotation = Quaternion.Euler(new Vector3(0, resetRotationY, 0));
     }
 
+    public void erasePlayerForces() {
+        player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        player.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        gravityController.transform.rotation = Quaternion.Euler(0, gravityController.transform.rotation.eulerAngles.y, 0);
+    }
     public IEnumerator dynamicTransitionFadeIn() {
         staticIn.Play();
         yield return new WaitForSeconds(0.3f);

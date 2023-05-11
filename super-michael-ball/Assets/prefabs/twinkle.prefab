@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3583409862099187075}
   - component: {fileID: 1457249445625688896}
   - component: {fileID: 1950492024}
+  - component: {fileID: 5281293564904684791}
   m_Layer: 0
   m_Name: twinkle
   m_TagString: Untagged
@@ -120,3 +121,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5281293564904684791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6058245782628760519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c5fec7810c3d0e4c854ce8bf54b6efe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraOBJ: {fileID: 0}
+  xRotateOffset: 90
+  yRotateOffset: 0
+  zRotateOffset: 0
