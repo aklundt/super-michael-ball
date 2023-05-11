@@ -5,85 +5,95 @@ using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 
 public class trainCutscene : MonoBehaviour
 {
 
     public gameManager gameManager;
-    public GameObject player;
-    public GameObject cameraObj;
-    public GameObject cutsceneCameraObj;
+
+    GameObject player;
+    GameObject cameraObj;
+    VideoPlayer doorTransition;
+
+    public GameObject cameraDestination;
     public GameObject trainObj;
     public GameObject twinklePrefab;
     public GameObject whiteboxObj;
     public DialogueObject footStuckLines;
-    [SerializeField] private bool sceneOngoing;
+    bool lookAtPlayer;
+    bool cutScenePlayedOnce;
 
     // Start is called before the first frame update
     void Start()
     {
-        sceneOngoing = false;
+        player = gameManager.player;
+        cameraObj = gameManager.cameraOBJ;
+        doorTransition = gameManager.doorTransition;
+        //sceneOngoing = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (sceneOngoing) {
-            cutsceneCameraObj.transform.LookAt(player.transform, Vector3.up);
-            if (player.transform.position.x > -174) { player.transform.position = new Vector3(-174, player.transform.position.y, player.transform.position.z); }
-            
+        if (lookAtPlayer) {
+           cameraObj.transform.LookAt(player.transform, Vector3.up);
+           if (player.transform.position.x > -174) { player.transform.position = new Vector3(-174, player.transform.position.y, player.transform.position.z); }
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        gameManager.GetComponent<narratorDialogue>().Run(footStuckLines);
-        gameManager.movementEnabled = false;
-        cutsceneCameraObj.SetActive(true);
-        cameraObj.SetActive(false);
-        sceneOngoing = true;
-        player.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        player.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-        StartCoroutine(startStuffAfterDialogueFinished());
+        if (!cutScenePlayedOnce) {
+            cutScenePlayedOnce = true;
+            gameManager.GetComponent<narratorDialogue>().Run(footStuckLines);
+            gameManager.movementEnabled = false;
+            gameManager.erasePlayerForces();
+            if (player.transform.position.x > -174)
+            {
+                player.transform.position = new Vector3(-174, player.transform.position.y, player.transform.position.z);
+
+            }
+            StartCoroutine(cameraObj.GetComponent<cameraMovement>().moveCameraTo(cameraDestination, 0.005f));
+            StartCoroutine(cameraObj.GetComponent<cameraMovement>().rotateTo(player, 0.005f));
+            StartCoroutine(startStuffAfterDialogueFinished());
+        }
+        
     }
 
-    private IEnumerator startStuffAfterDialogueFinished () {
-        while (!gameManager.GetComponent<narratorDialogue>().dialogueFinished) {        
+    private IEnumerator startStuffAfterDialogueFinished() {
+        while (gameManager.textBoxOngoing) {        
             yield return null;
         }
+        lookAtPlayer = true;
+        yield return new WaitForSeconds(.5f);
         StartCoroutine(trainMoving());
         StartCoroutine(endCutscene());
         yield break;
     }
 
     private IEnumerator trainMoving() {
-        while (sceneOngoing) {
+        player.GetComponent<Rigidbody>().velocity = Vector3.back * .2f;
+        while (lookAtPlayer) {
             trainObj.transform.Translate(0, 0, 50 * Time.deltaTime);
             yield return null;
         }
         yield return null;
     }
     private IEnumerator endCutscene() {
-        bool fadingOut = false;
-        MeshRenderer fadingWhiteMaterial = whiteboxObj.GetComponent<MeshRenderer>();
-        while (sceneOngoing)
+        while (lookAtPlayer)
         {
             yield return new WaitForSeconds(2);
-            GameObject twinkleObj = Instantiate(twinklePrefab, player.transform.position, Quaternion.Euler(-120, 0, 0));
+            GameObject twinkleObj = Instantiate(twinklePrefab, player.transform.position, Quaternion.Euler(0, 0, 0));
             player.SetActive(false);
-            sceneOngoing = false;
+            lookAtPlayer = false;
             yield return new WaitForSeconds(2);
-            new WaitForSeconds(1);
-            fadingOut = true;
         }
-        while (fadingOut) {
-            fadingWhiteMaterial.material.color = new Color(1f, 1f, 1f, fadingWhiteMaterial.material.color.a + (1f * Time.deltaTime));
-            if (fadingWhiteMaterial.material.color.a >= 1) { fadingOut = false; }
-            new WaitForSeconds(0.5f);
-            // Scene transition?
-            
+        doorTransition.Play();
+        yield return new WaitForSeconds(1);
+        while (doorTransition.isPlaying) {
             yield return null;
         }
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene("DreamLobby");
     }
 }

@@ -13,6 +13,10 @@ public class genericMovement : MonoBehaviour
     float primaryVerticalInput;
     float secondaryHorizontalInput;
     float secondaryVerticalInput;
+    bool xboxA;
+    bool xboxADown;
+    bool xboxRightBumper;
+    bool xboxRightBumperDown;
     public float gravityTiltLimit;
     public float cameraTiltLimit;
     public float gravStabilizationFactor;
@@ -46,6 +50,10 @@ public class genericMovement : MonoBehaviour
         primaryVerticalInput = gameManager.primaryVerticalInput;
         secondaryHorizontalInput = gameManager.secondaryHorizontalInput;
         secondaryVerticalInput = gameManager.secondaryVerticalInput;
+        xboxA = gameManager.xboxA;
+        xboxADown = gameManager.xboxADown;
+        xboxRightBumper = gameManager.xboxRightBumper;
+        xboxRightBumperDown = gameManager.xboxRightBumperDown;
     }
     
     // updates gravity-controller and camera with input
@@ -56,10 +64,11 @@ public class genericMovement : MonoBehaviour
         stabilizeRotation(this.gameObject, axis.Z, gravStabilizationFactor);
         
 
-        transform.position = player.transform.position + new Vector3(0, 2, 0);
+        
         // if movement is enabled update gameobjects
         if (gameManager.movementEnabled)
         {
+            transform.position = player.transform.position + new Vector3(0, 2, 0);
             stabilizeRotation(cameraObj.gameObject, axis.X, cameraStabilizationFactor);
 
             // update gravity-controller
@@ -93,6 +102,17 @@ public class genericMovement : MonoBehaviour
         }
         // update physics
         Physics.gravity = gravityTarget.position - transform.position;
+
+        // reset player position when shortcut is pressed
+        if ((xboxRightBumper && xboxADown) || (xboxRightBumperDown && xboxA))
+        {
+            StartCoroutine(gameManager.dynamicTransitionFadeIn());
+            /*player.transform.position = new Vector3 (0, 1, 0);
+            player.transform.rotation = new Quaternion(0, 0, 0, 1);
+            player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            player.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+            transform.rotation = new Quaternion(0, 0, 0, 1);*/
+        }
 
     }
     // uses a factor to gradually rotate an object back towards 0.
