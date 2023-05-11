@@ -6,12 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/scenes/Menu.unity
+    path: Assets/Scenes/Menu.unity
     guid: a9793b5906da90e438928b52dada7ff7
   - enabled: 1
     path: Assets/Scenes/RealWorldHouse.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
-    path: Assets/scenes/siberia.unity
-    guid: a5ec45659cfba114481e8f330e5d3fcd
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   m_configObjects: {}
