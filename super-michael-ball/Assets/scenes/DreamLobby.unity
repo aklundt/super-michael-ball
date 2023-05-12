@@ -875,7 +875,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38adf72f9da0f5b4280d370e0feacae0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 710603616}
   deaths: 0
 --- !u!65 &634709852
 BoxCollider:
@@ -986,8 +986,6 @@ MonoBehaviour:
   cameraWhite: {fileID: 848816311}
   gravityController: {fileID: 952019122}
   deathPlane: {fileID: 634709849}
-  transitionRenderer: {fileID: 8400000, guid: a045ee64692488b46a6361bf48532fb6, type: 2}
-  whiteTransition: {fileID: 0}
   staticInRenderer: {fileID: 8400000, guid: 9b095b03d7cf85c4db87d77f0474dfff, type: 2}
   staticIn: {fileID: 48281365}
   staticOutRenderer: {fileID: 8400000, guid: 79bb37d7391afe8448e1ea93e3b9bca0, type: 2}
@@ -1007,7 +1005,7 @@ MonoBehaviour:
   xboxADown: 0
   xboxRightBumper: 0
   xboxRightBumperDown: 0
-  gameStatus: 4
+  gameStatus: 1
   frameRate: 0
   resetPosition: {x: 0, y: 0, z: 0}
   resetRotationY: 0

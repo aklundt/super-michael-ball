@@ -46,6 +46,7 @@ public class trainCutscene : MonoBehaviour
     {
         if (!cutScenePlayedOnce) {
             cutScenePlayedOnce = true;
+            PlayerPrefs.SetInt("gameState", 1);
             gameManager.GetComponent<narratorDialogue>().Run(footStuckLines);
             gameManager.movementEnabled = false;
             gameManager.erasePlayerForces();

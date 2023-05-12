@@ -24,16 +24,17 @@ public class lobbyDoorFunction : MonoBehaviour
         cameraOBJ = gameManager.GetComponent<gameManager>().cameraOBJ;
         player = gameManager.GetComponent<gameManager>().player;
         doorTransition = gameManager.GetComponent<gameManager>().doorTransition;
-        if (doorNumber <= gameManager.GetComponent<gameManager>().gameStatus) {
-            gameObject.GetComponent<MeshCollider>().isTrigger = true;
-            gameObject.GetComponent<MeshRenderer>().material = gameManager.GetComponent<gameManager>().glowingWhite;
-            transform.GetChild(0).gameObject.SetActive(true);
-        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (doorNumber <= gameManager.GetComponent<gameManager>().gameStatus)
+        {
+            gameObject.GetComponent<MeshCollider>().isTrigger = true;
+            gameObject.GetComponent<MeshRenderer>().material = gameManager.GetComponent<gameManager>().glowingWhite;
+            transform.GetChild(0).gameObject.SetActive(true);
+        }
     }
 
     private void OnTriggerEnter(Collider other)

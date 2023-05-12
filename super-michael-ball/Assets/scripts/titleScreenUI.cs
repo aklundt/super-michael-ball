@@ -18,6 +18,13 @@ public class titleScreenUI : MonoBehaviour
     }
 
     public void moveToScene(int sceneNum) {
-        SceneManager.LoadScene(sceneNum);
+        if (PlayerPrefs.GetInt("gameState") == 0)
+        {
+            SceneManager.LoadScene("RealWorldHouse");
+        }
+        else {
+            SceneManager.LoadScene("DreamLobby");
+        }
+        
     }
 }

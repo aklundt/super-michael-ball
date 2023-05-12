@@ -46,6 +46,7 @@ public class gameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameStatus = PlayerPrefs.GetInt("gameState");
         staticInRenderer.Release();
         staticOutRenderer.Release();
         textBoxRenderer.Release();
