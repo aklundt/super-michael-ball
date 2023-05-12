@@ -60,8 +60,6 @@ public class boxTrigger : MonoBehaviour
         // if triggered, freeze player, reveal horrific level, and start counting deaths in Update()
         if (!triggered)
         {
-            gameManager.resetPosition = new Vector3(-527, -223, 189);
-            gameManager.resetRotationY = -90;
             initialDeathCount = deathPlane.deaths;
             triggered = true;
             gameManager.movementEnabled = false;
@@ -110,8 +108,8 @@ public class boxTrigger : MonoBehaviour
         {
             yield return null;
         }
-        StartCoroutine(cameraMovement.moveCameraTo(cameraTeleportDestination, 0.01f));
-        StartCoroutine(cameraMovement.rotateTo(cameraTeleportTarget, 0.01f));
+        StartCoroutine(cameraMovement.moveCameraTo(cameraTeleportDestination, 0.05f));
+        StartCoroutine(cameraMovement.rotateTo(cameraTeleportTarget, 0.05f));
         yield return new WaitForSeconds(1);
         gameManager.teleportPlayerTo(cameraTeleportTarget.transform.position + new Vector3(0, 2, 0), new Vector3(0, -90, 0));
         Instantiate(twinklePrefab, gameManager.player.transform.position, Quaternion.Euler(0, 0, 0));

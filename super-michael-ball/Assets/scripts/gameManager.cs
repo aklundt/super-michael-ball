@@ -133,9 +133,6 @@ public class gameManager : MonoBehaviour
                 
             }
             cameraWhite.SetActive(false);
-            
-            
-            
 
 
             staticIn.frame = 0;

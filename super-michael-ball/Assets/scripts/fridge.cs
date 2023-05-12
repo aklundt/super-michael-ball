@@ -17,6 +17,7 @@ public class fridge : MonoBehaviour
 
     public GameObject destination;
     public GameObject target;
+    public int doorNumberToUnlock;
     // Start is called before the first frame update
     void Start()
     {
@@ -59,7 +60,10 @@ public class fridge : MonoBehaviour
         while (doorTransition.isPlaying) { 
             yield return null;
         }
-        PlayerPrefs.SetInt("gameState", PlayerPrefs.GetInt("gameState") + 1);
+        if (PlayerPrefs.GetInt("gameState") < doorNumberToUnlock) {
+            PlayerPrefs.SetInt("gameState", doorNumberToUnlock);
+        }
+        
         SceneManager.LoadScene("DreamLobby");
     }
 }
