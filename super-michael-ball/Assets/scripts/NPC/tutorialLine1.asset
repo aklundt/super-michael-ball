@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8720fdebcd5f224db406639b073cd7c, type: 3}
+  m_Name: tutorialLine1
+  m_EditorClassIdentifier: 
+  dialogue:
+  - Hey there player, welcome to the first level!
+  - Actually, It's more of a tutorial here in order to show you some basic mechanics
+    that you'll need to be able to find Maki.
+  - "Go ahead and move around the map. \n\nGet used to the controls you fat lard.\n"
+  - 'Follow Maki''s pawprints to find her!
+
+'
+  actorName: Narrator

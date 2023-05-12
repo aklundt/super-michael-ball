@@ -15,8 +15,12 @@ public class boxTrigger : MonoBehaviour
 
     public GameObject box;
     public GameObject[] distractions;
+    public DialogueObject distractionLines1;
+    public DialogueObject distractionLines2;
     public GameObject cameraDestination;
     public GameObject cameraTarget;
+    public GameObject twinklePrefab;
+
 
     public GameObject cameraTeleportDestination;
     public GameObject cameraTeleportTarget;
@@ -66,22 +70,32 @@ public class boxTrigger : MonoBehaviour
             {
                 distraction.GetComponent<spin>().active = true;
             }
+
             StartCoroutine(moveBox());
         }
     }
 
     // lifts box off of level
     IEnumerator moveBox() {
+        gameManager.GetComponent<narratorDialogue>().Run(distractionLines1);
         StartCoroutine(cameraMovement.moveCameraTo(cameraDestination, 0.005f));
         StartCoroutine(cameraMovement.rotateTo(cameraTarget, 0.005f));
+        yield return new WaitForSeconds(3);
+        while (true)
+        {
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || gameManager.xboxADown) { break; }
+            if (!gameManager.textBoxOngoing) { break; }
+            yield return null;
+        }
+        
         while (box.transform.position.y < 100)
         {
             box.transform.Translate(Vector3.up * 100 * Time.deltaTime, Space.World);
             yield return null;
         }
-
-        // I WANT TO PUT A TEXT BOX HERE SAYING "GOOD LUCK! :)" THAT THE GAME DOESNT CONTINUE UNTIL ITS CLOSED
-
+        while (gameManager.textBoxOngoing) {
+            yield return null;
+        }
         StartCoroutine(cameraMovement.resetCamera(0.05f));
         gameManager.movementEnabled = true;
     }
@@ -89,14 +103,18 @@ public class boxTrigger : MonoBehaviour
     // teleports player to the end
     IEnumerator teleportToEnd() { 
         yield return new WaitForSeconds(3);
+        
+        gameManager.GetComponent<narratorDialogue>().Run(distractionLines2);
+        // I WANT TO REPLACE THIS WAIT HERE WITH TEXT SAYING "YEAH OKAY YOU'RE NOT CUT OUT FOR THIS" THAT THE GAME DOESNT CONTINUE UNTIL ITS CLOSED
+        while (gameManager.textBoxOngoing)
+        {
+            yield return null;
+        }
         StartCoroutine(cameraMovement.moveCameraTo(cameraTeleportDestination, 0.01f));
         StartCoroutine(cameraMovement.rotateTo(cameraTeleportTarget, 0.01f));
-
-        // I WANT TO REPLACE THIS WAIT HERE WITH TEXT SAYING "YEAH OKAY YOU'RE NOT CUT OUT FOR THIS" THAT THE GAME DOESNT CONTINUE UNTIL ITS CLOSED
-        yield return new WaitForSeconds(3);
-
-
+        yield return new WaitForSeconds(1);
         gameManager.teleportPlayerTo(cameraTeleportTarget.transform.position + new Vector3(0, 2, 0), new Vector3(0, -90, 0));
+        Instantiate(twinklePrefab, gameManager.player.transform.position, Quaternion.Euler(0, 0, 0));
         gameManager.resetPosition = cameraTeleportTarget.transform.position + new Vector3(0, 2, 0);
         yield return new WaitForSeconds(2);
         gameManager.gravityController.transform.position = gameManager.player.transform.position + new Vector3(0, 2, 0);

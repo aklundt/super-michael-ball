@@ -9,10 +9,9 @@ public class gameManager : MonoBehaviour
 {
     public GameObject player;
     public GameObject cameraOBJ;
+    public GameObject cameraWhite;
     public GameObject gravityController;
     public GameObject deathPlane;
-    public RenderTexture transitionRenderer;
-    public VideoPlayer whiteTransition;
     public RenderTexture staticInRenderer;
     public VideoPlayer staticIn;
     public RenderTexture staticOutRenderer;
@@ -23,6 +22,7 @@ public class gameManager : MonoBehaviour
     public VideoPlayer textBox;
     public VideoClip textBoxOpen;
     public VideoClip textBoxClose;
+    public Material glowingWhite;
 
     public float primaryHorizontalInput;
     public float primaryVerticalInput;
@@ -46,7 +46,6 @@ public class gameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //transitionRenderer.Release();
         staticInRenderer.Release();
         staticOutRenderer.Release();
         textBoxRenderer.Release();
@@ -121,6 +120,12 @@ public class gameManager : MonoBehaviour
         }
         if (reset) { resetPlayer(); }
         if (fadeOut) {
+            staticOut.Prepare();
+            Debug.Log(staticOut.isPrepared);
+            while (!staticOut.isPrepared) {
+                yield return null;
+            }
+            cameraWhite.SetActive(false);
             staticOut.Play();
             staticOut.frame = 0;
 

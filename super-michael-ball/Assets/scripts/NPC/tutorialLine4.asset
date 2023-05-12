@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8720fdebcd5f224db406639b073cd7c, type: 3}
+  m_Name: tutorialLine4
+  m_EditorClassIdentifier: 
+  dialogue:
+  - It will also be important to be able to keep your balance!
+  - 'you can try to go fast and risk falling off, '
+  - or take it slow and be more successful!
+  - it would be a lot cooler if you did it fast though.
+  - i mean...
+  - what is Maki gets ran over before you find her?
+  - you better hurry.
+  actorName: Narrator

@@ -11,7 +11,7 @@ public class lobbyDoorFunction : MonoBehaviour
 
     GameObject cameraOBJ;
     GameObject player;
-    VideoPlayer whiteTransition;
+    VideoPlayer doorTransition;
     
 
     public string sceneDestination;
@@ -23,7 +23,7 @@ public class lobbyDoorFunction : MonoBehaviour
     {
         cameraOBJ = gameManager.GetComponent<gameManager>().cameraOBJ;
         player = gameManager.GetComponent<gameManager>().player;
-        whiteTransition = gameManager.GetComponent<gameManager>().whiteTransition;
+        doorTransition = gameManager.GetComponent<gameManager>().doorTransition;
         if (doorNumber <= gameManager.GetComponent<gameManager>().gameStatus) {
             gameObject.GetComponent<MeshCollider>().isTrigger = true;
             gameObject.GetComponent<MeshRenderer>().material = gameManager.GetComponent<gameManager>().glowingWhite;
@@ -70,10 +70,9 @@ public class lobbyDoorFunction : MonoBehaviour
     }
 
     private IEnumerator transitionVideoAndSceneChange() {
-        Debug.Log("should be playing");
-        whiteTransition.Play();
+        doorTransition.Play();
         yield return new WaitForSeconds(0.5f);
-        while (whiteTransition.isPlaying) {
+        while (doorTransition.isPlaying) {
             yield return null;
         }
         SceneManager.LoadScene(sceneDestination);
