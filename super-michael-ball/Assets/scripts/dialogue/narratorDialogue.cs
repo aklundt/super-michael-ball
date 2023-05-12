@@ -8,26 +8,21 @@ public class narratorDialogue : MonoBehaviour
 {
     public gameManager gameManager;
 
-    RenderTexture textBoxRenderer;
     VideoPlayer textBox;
     VideoClip textBoxOpen;
     VideoClip textBoxClose;
-    bool xboxADown;
 
     public TextMeshProUGUI dialogueBoxTMP;
     private dialogueTyper dialogueTyper;
     public bool dialogueFinished;
 
     void Start() {
-        textBoxRenderer = gameManager.textBoxRenderer;
         textBox = gameManager.textBox;
         textBoxOpen = gameManager.textBoxOpen;
         textBoxClose = gameManager.textBoxClose;
-        xboxADown = gameManager.xboxADown;
     }
     public Coroutine Run(DialogueObject narratorLines)
     {
-        dialogueFinished = false;
         textBox.clip = textBoxOpen;
         textBox.Play();
         dialogueTyper = gameManager.GetComponent<dialogueTyper>();
@@ -51,7 +46,6 @@ public class narratorDialogue : MonoBehaviour
         textBox.clip = textBoxClose;
         textBox.Play();
         dialogueBoxTMP.text = "";
-        dialogueFinished = true;
     }
 
 
@@ -61,7 +55,7 @@ public class narratorDialogue : MonoBehaviour
         foreach (string dialogue in dialogueObject.Dialogue)
         {
             yield return dialogueTyper.Run(dialogue, dialogueBoxTMP);
-            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || xboxADown);
+            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || gameManager.xboxADown);
         }
         closeDialogueBox();
         yield break;
