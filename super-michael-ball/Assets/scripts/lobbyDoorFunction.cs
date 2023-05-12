@@ -40,8 +40,8 @@ public class lobbyDoorFunction : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
           gameManager.GetComponent<gameManager>().movementEnabled = false;
-          StartCoroutine(cameraOBJ.GetComponent<cameraMovement>().moveCameraTo(cameraEmpty, 0.03f));
-          StartCoroutine(cameraOBJ.GetComponent<cameraMovement>().rotateTo(transform.gameObject, 0.03f));
+          StartCoroutine(cameraOBJ.GetComponent<cameraMovement>().moveCameraTo(cameraEmpty, 0.05f));
+          StartCoroutine(cameraOBJ.GetComponent<cameraMovement>().rotateTo(transform.gameObject, 0.05f));
           StartCoroutine(disablePlayer());
           StartCoroutine(doorEnter());
         

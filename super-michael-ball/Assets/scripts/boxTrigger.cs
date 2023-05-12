@@ -46,8 +46,8 @@ public class boxTrigger : MonoBehaviour
                 if (gameManager.gravityController.transform.position.y > -240) {
                     gameManager.movementEnabled = false;
                     gameManager.erasePlayerForces();
-                    StartCoroutine(cameraMovement.moveCameraTo(cameraDestination, 0.005f));
-                    StartCoroutine(cameraMovement.rotateTo(cameraTarget, 0.005f));
+                    StartCoroutine(cameraMovement.moveCameraTo(cameraDestination, 0.05f));
+                    StartCoroutine(cameraMovement.rotateTo(cameraTarget, 0.05f));
                     StartCoroutine(teleportToEnd());
                     triggered = false;
                 }
@@ -78,8 +78,8 @@ public class boxTrigger : MonoBehaviour
     // lifts box off of level
     IEnumerator moveBox() {
         gameManager.GetComponent<narratorDialogue>().Run(distractionLines1);
-        StartCoroutine(cameraMovement.moveCameraTo(cameraDestination, 0.005f));
-        StartCoroutine(cameraMovement.rotateTo(cameraTarget, 0.005f));
+        StartCoroutine(cameraMovement.moveCameraTo(cameraDestination, 0.05f));
+        StartCoroutine(cameraMovement.rotateTo(cameraTarget, 0.05f));
         yield return new WaitForSeconds(3);
         while (true)
         {

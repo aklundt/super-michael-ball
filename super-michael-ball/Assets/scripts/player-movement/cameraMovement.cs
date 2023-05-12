@@ -27,7 +27,7 @@ public class cameraMovement : MonoBehaviour
         {
             transform.localPosition = Vector3.Slerp(transform.localPosition, Vector3.zero, slerpSpeed);
             transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(Vector3.zero), slerpSpeed);
-            yield return null;
+            yield return new WaitForFixedUpdate();
             time += Time.deltaTime;
         }
         transform.localPosition = Vector3.zero;
@@ -39,7 +39,7 @@ public class cameraMovement : MonoBehaviour
         float time = 0;
         while (time < 3) {
             transform.position = Vector3.Slerp(transform.position, destination.transform.position, slerpSpeed);
-            yield return null;
+            yield return new WaitForFixedUpdate();
             time += Time.deltaTime;
         }
         transform.position = destination.transform.position;
@@ -52,7 +52,7 @@ public class cameraMovement : MonoBehaviour
             lookDirection = Quaternion.Euler(Quaternion.LookRotation(destination.transform.position - transform.position).eulerAngles + new Vector3(0, 0, 0));
             transform.rotation = Quaternion.Slerp(transform.rotation, lookDirection, slerpSpeed);
             time += Time.deltaTime;
-            yield return null;
+            yield return new WaitForFixedUpdate();
         }
         transform.rotation = lookDirection;
         yield return null;

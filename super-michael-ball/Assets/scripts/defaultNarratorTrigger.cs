@@ -31,8 +31,8 @@ public class defaultNarratorTrigger : MonoBehaviour
             gameManager.movementEnabled = false;
             gameManager.erasePlayerForces();
             gameManager.player.GetComponent<Rigidbody>().drag = 5;
-            StartCoroutine(cameraMovement.moveCameraTo(destination, 0.005f));
-            StartCoroutine(cameraMovement.rotateTo(target, 0.005f));
+            StartCoroutine(cameraMovement.moveCameraTo(destination, 0.05f));
+            StartCoroutine(cameraMovement.rotateTo(target, 0.05f));
             gameManager.GetComponent<narratorDialogue>().Run(dialogueLines);
             StartCoroutine(waitForDialogueEnd());
             

@@ -387,7 +387,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
@@ -3052,7 +3051,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &1520846105
 Animator:
-  serializedVersion: 5
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -3069,8 +3068,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &1520846106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3562,7 +3560,7 @@ MonoBehaviour:
   xboxRightBumperDown: 0
   gameStatus: 0
   frameRate: 0
-  resetPosition: {x: -982.06, y: -353.29993, z: 189.52835}
+  resetPosition: {x: 0, y: 0, z: 0}
   resetRotationY: 0
   movementEnabled: 1
   textBoxOngoing: 0

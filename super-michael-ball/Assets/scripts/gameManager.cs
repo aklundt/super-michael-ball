@@ -124,11 +124,18 @@ public class gameManager : MonoBehaviour
             staticOut.Prepare();
             Debug.Log(staticOut.isPrepared);
             while (!staticOut.isPrepared) {
-                yield return null;
+                yield return new WaitForFixedUpdate();
             }
-            cameraWhite.SetActive(false);
             staticOut.Play();
             staticOut.frame = 0;
+            while (staticOut.frame < 1) {
+                yield return null;
+                
+            }
+            cameraWhite.SetActive(false);
+            
+            
+            
 
 
             staticIn.frame = 0;

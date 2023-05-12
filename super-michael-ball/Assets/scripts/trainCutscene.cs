@@ -55,8 +55,8 @@ public class trainCutscene : MonoBehaviour
                 player.transform.position = new Vector3(-174, player.transform.position.y, player.transform.position.z);
 
             }
-            StartCoroutine(cameraObj.GetComponent<cameraMovement>().moveCameraTo(cameraDestination, 0.005f));
-            StartCoroutine(cameraObj.GetComponent<cameraMovement>().rotateTo(player, 0.005f));
+            StartCoroutine(cameraObj.GetComponent<cameraMovement>().moveCameraTo(cameraDestination, 0.05f));
+            StartCoroutine(cameraObj.GetComponent<cameraMovement>().rotateTo(player, 0.05f));
             StartCoroutine(startStuffAfterDialogueFinished());
         }
         
