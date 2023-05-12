@@ -2,23 +2,32 @@ using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class NPCController : MonoBehaviour
 {
-    public GameObject player;
-    public GameObject gravityController;
-    public GameObject dialogueBox;
     public TextMeshProUGUI dialogueBoxTMP;
     public TextMeshProUGUI dialogueCharacterName;
     public DialogueObject dialogueLines;
-    private dialogueTyper dialogueTyper;
     public gameManager gameManager;
-    private bool xboxA; 
+    dialogueTyper dialogueTyper;
+    GameObject player;
+    GameObject gravityController;
+    bool xboxA;
+    VideoPlayer textBox;
+    VideoClip textBoxOpen;
+    VideoClip textBoxClose;
+    public GameObject dialogueBox;
 
     // Start is called before the first frame update
     void Start()
     {
-        dialogueTyper = gameManager.GetComponent<dialogueTyper>();
+        player = gameManager.player;
+        gravityController = gameManager.gravityController;
+        textBox = gameManager.textBox;
+        textBoxOpen = gameManager.textBoxOpen;
+        textBoxClose = gameManager.textBoxClose;
+        //dialogueBox 
     }
 
     // Update is called once per frame
@@ -27,7 +36,10 @@ public class NPCController : MonoBehaviour
         xboxA = Input.GetButtonDown("XboxA");
         if (Input.GetKeyDown(KeyCode.Return) && (player.transform.position - transform.position).magnitude <= 6 && !gameManager.textBoxOngoing || Input.GetButtonDown("XboxA") && (player.transform.position - transform.position).magnitude <= 6 && !gameManager.textBoxOngoing)
         {
-            openDialogueBox();
+            openDialogueBox(); 
+            textBox.clip = textBoxOpen;
+            textBox.Play();
+            dialogueTyper = gameManager.GetComponent<dialogueTyper>();
             StartCoroutine(StepThroughDialogue(dialogueLines));
         }
     }
@@ -35,19 +47,23 @@ public class NPCController : MonoBehaviour
 
     private void openDialogueBox () // I will beat Grayson into making pretty little animations. Maybe we should move these to a different script
     {
-        player.GetComponent<Rigidbody>().drag = 50;
+        player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        player.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         gameManager.textBoxOngoing = true;
-        dialogueBox.SetActive(true);
         dialogueCharacterName.text = dialogueLines.ActorName;
         StartCoroutine(alignCameraToNPC());
     }
 
     private void closeDialogueBox() // ^ last comment
     {
-        gameManager.GetComponent<gameManager>().textBoxOngoing = false;
-        player.GetComponent<Rigidbody>().drag = .5f;
+        gameManager.textBoxOngoing = false;
+        textBox.clip = textBoxClose;
+        textBox.Play();
         dialogueBoxTMP.text = "";
-        dialogueBox.SetActive(false);
+        gameManager.GetComponent<gameManager>().textBoxOngoing = false;
+        player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        player.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        dialogueBoxTMP.text = "";
     }
 
     private float rotationToNPC ()
@@ -68,9 +84,9 @@ public class NPCController : MonoBehaviour
     {
         while (Math.Round(rotationToNPC()) != Math.Round(UnityEditor.TransformUtils.GetInspectorRotation(gravityController.transform).y))
         {
-            yield return gravityController.transform.rotation = Quaternion.Slerp(gravityController.transform.rotation, Quaternion.Euler(gravityController.transform.rotation.x, rotationToNPC(), gravityController.transform.rotation.y), 0.05f);
+            gravityController.transform.rotation = Quaternion.Slerp(gravityController.transform.rotation, Quaternion.Euler(gravityController.transform.rotation.x, rotationToNPC(), gravityController.transform.rotation.y), 0.05f); // LOOK AT THE NUMBER
+            yield return new WaitForFixedUpdate();
         }
-        player.GetComponent<Rigidbody>().drag = 0.5f;
         gameManager.movementEnabled = true;
         yield break;
         
@@ -78,10 +94,11 @@ public class NPCController : MonoBehaviour
 
     private IEnumerator StepThroughDialogue(DialogueObject dialogueObject)
     {
+        yield return new WaitForSeconds(1);
         foreach (string dialogue in dialogueObject.Dialogue)
         {
             yield return dialogueTyper.Run(dialogue, dialogueBoxTMP);
-            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || xboxA); 
+            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || gameManager.xboxADown); 
         }
         closeDialogueBox();
         yield break;

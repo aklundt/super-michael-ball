@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1123,8 +1123,6 @@ MonoBehaviour:
   cameraWhite: {fileID: 1905042824}
   gravityController: {fileID: 1381653845}
   deathPlane: {fileID: 0}
-  transitionRenderer: {fileID: 0}
-  whiteTransition: {fileID: 0}
   staticInRenderer: {fileID: 8400000, guid: 9b095b03d7cf85c4db87d77f0474dfff, type: 2}
   staticIn: {fileID: 2086496000}
   staticOutRenderer: {fileID: 8400000, guid: 79bb37d7391afe8448e1ea93e3b9bca0, type: 2}
@@ -1875,13 +1873,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ba1d13bfcd7ee143aea8ba87aed4a31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1070265665}
-  gravityController: {fileID: 1381653845}
-  dialogueBox: {fileID: 889115722}
   dialogueBoxTMP: {fileID: 1814981238}
   dialogueCharacterName: {fileID: 1065155754}
   dialogueLines: {fileID: 11400000, guid: 1eb5d6d967485c54b97d984f9e3349f9, type: 2}
   gameManager: {fileID: 1045087955}
+  dialogueBox: {fileID: 580932706}
 --- !u!1 &1459026110
 GameObject:
   m_ObjectHideFlags: 0
@@ -2543,7 +2539,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
