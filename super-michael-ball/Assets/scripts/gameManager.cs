@@ -1,6 +1,7 @@
 using OpenCover.Framework.Model;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.Video;
@@ -28,6 +29,7 @@ public class gameManager : MonoBehaviour
     public float primaryVerticalInput;
     public float secondaryHorizontalInput;
     public float secondaryVerticalInput;
+    public bool escDown;
     public bool xboxA;
     public bool xboxADown;
     public bool xboxRightBumper;
@@ -42,10 +44,12 @@ public class gameManager : MonoBehaviour
 
 
     public bool textBoxOngoing;
+    public bool paused;
 
     // Start is called before the first frame update
     void Start()
     {
+
         gameStatus = PlayerPrefs.GetInt("gameState");
         staticInRenderer.Release();
         staticOutRenderer.Release();
@@ -67,6 +71,7 @@ public class gameManager : MonoBehaviour
         primaryVerticalInput = Input.GetAxis("Vertical");
         secondaryHorizontalInput = Input.GetAxis("Secondary Horizontal");
         secondaryVerticalInput = Input.GetAxis("Secondary Vertical");
+        escDown = Input.GetKeyDown(KeyCode.Escape);
         xboxA = Input.GetButton("XboxA");
         xboxADown = Input.GetButtonDown("XboxA");
         xboxRightBumper = Input.GetButton("XboxRightBumper");
@@ -146,4 +151,5 @@ public class gameManager : MonoBehaviour
         }
         yield return null;
     }
+
 }

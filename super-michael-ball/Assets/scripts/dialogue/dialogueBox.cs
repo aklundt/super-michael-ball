@@ -28,19 +28,21 @@ public class dialogueBox : MonoBehaviour
         applyInput();
     }
 
-    void grabInput() { 
+    void grabInput() {
         secondaryVerticalInput = gameManager.secondaryVerticalInput;
         secondaryHorizontalInput = gameManager.secondaryHorizontalInput;
     }
 
     void applyInput() {
-        stabilizeMovement(rectTransform, axis.X, moveStabilizationFactor);
-        Vector2 newPosition = rectTransform.anchoredPosition + (new Vector2(secondaryHorizontalInput, secondaryVerticalInput));
-        newPosition = new Vector2(
-            Mathf.Clamp(newPosition.x, -moveLimit, moveLimit),
-            Mathf.Clamp(newPosition.y, -moveLimit, moveLimit)
-            );
-        rectTransform.anchoredPosition = newPosition;
+        if (!gameManager.paused) { 
+            stabilizeMovement(rectTransform, axis.X, moveStabilizationFactor);
+            Vector2 newPosition = rectTransform.anchoredPosition + (new Vector2(secondaryHorizontalInput, secondaryVerticalInput));
+            newPosition = new Vector2(
+                Mathf.Clamp(newPosition.x, -moveLimit, moveLimit),
+                Mathf.Clamp(newPosition.y, -moveLimit, moveLimit)
+                );
+            rectTransform.anchoredPosition = newPosition;
+        } 
     }
 
     void stabilizeMovement(RectTransform rectTransform, axis axis, float factor) {

@@ -55,7 +55,7 @@ public class narratorDialogue : MonoBehaviour
         foreach (string dialogue in dialogueObject.Dialogue)
         {
             yield return dialogueTyper.Run(dialogue, dialogueBoxTMP);
-            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || gameManager.xboxADown);
+            yield return new WaitUntil(() => Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Return) || gameManager.xboxA);
         }
         closeDialogueBox();
         yield break;

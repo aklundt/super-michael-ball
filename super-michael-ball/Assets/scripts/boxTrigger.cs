@@ -103,13 +103,12 @@ public class boxTrigger : MonoBehaviour
         yield return new WaitForSeconds(3);
         
         gameManager.GetComponent<narratorDialogue>().Run(distractionLines2);
-        // I WANT TO REPLACE THIS WAIT HERE WITH TEXT SAYING "YEAH OKAY YOU'RE NOT CUT OUT FOR THIS" THAT THE GAME DOESNT CONTINUE UNTIL ITS CLOSED
         while (gameManager.textBoxOngoing)
         {
             yield return null;
         }
-        StartCoroutine(cameraMovement.moveCameraTo(cameraTeleportDestination, 0.05f));
-        StartCoroutine(cameraMovement.rotateTo(cameraTeleportTarget, 0.05f));
+        StartCoroutine(cameraMovement.moveCameraTo(cameraTeleportDestination, 0.07f));
+        StartCoroutine(cameraMovement.rotateTo(cameraTeleportTarget, 0.07f));
         yield return new WaitForSeconds(1);
         gameManager.teleportPlayerTo(cameraTeleportTarget.transform.position + new Vector3(0, 2, 0), new Vector3(0, -90, 0));
         Instantiate(twinklePrefab, gameManager.player.transform.position, Quaternion.Euler(0, 0, 0));

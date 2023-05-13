@@ -46,8 +46,8 @@ public class fridge : MonoBehaviour
             triggered = true;
             gameManager.movementEnabled = false;
             gameManager.erasePlayerForces();
-            StartCoroutine(cameraOBJ.GetComponent<cameraMovement>().moveCameraTo(destination, 0.03f));
-            StartCoroutine(cameraOBJ.GetComponent<cameraMovement>().rotateTo(target, 0.03f));
+            StartCoroutine(cameraOBJ.GetComponent<cameraMovement>().moveCameraTo(destination, 0.05f));
+            StartCoroutine(cameraOBJ.GetComponent<cameraMovement>().rotateTo(target, 0.05f));
             StartCoroutine(waitAndReturnToLobby());
         }
     }

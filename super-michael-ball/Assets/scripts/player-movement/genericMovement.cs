@@ -98,21 +98,22 @@ public class genericMovement : MonoBehaviour
                 cameraRotation.z
                 );
             cameraObj.localEulerAngles = cameraRotation;
-            
+
+            // reset player position when shortcut is pressed
+            if ((xboxRightBumper && xboxADown) || (xboxRightBumperDown && xboxA))
+            {
+                StartCoroutine(gameManager.dynamicTransitionFadeIn());
+                /*player.transform.position = new Vector3 (0, 1, 0);
+                player.transform.rotation = new Quaternion(0, 0, 0, 1);
+                player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                player.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+                transform.rotation = new Quaternion(0, 0, 0, 1);*/
+            }
         }
         // update physics
         Physics.gravity = gravityTarget.position - transform.position;
 
-        // reset player position when shortcut is pressed
-        if ((xboxRightBumper && xboxADown) || (xboxRightBumperDown && xboxA))
-        {
-            StartCoroutine(gameManager.dynamicTransitionFadeIn());
-            /*player.transform.position = new Vector3 (0, 1, 0);
-            player.transform.rotation = new Quaternion(0, 0, 0, 1);
-            player.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            player.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-            transform.rotation = new Quaternion(0, 0, 0, 1);*/
-        }
+        
 
     }
     // uses a factor to gradually rotate an object back towards 0.
