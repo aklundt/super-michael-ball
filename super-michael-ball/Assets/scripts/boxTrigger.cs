@@ -119,10 +119,8 @@ public class boxTrigger : MonoBehaviour
         cameraOBJ.transform.position = cameraTeleportDestination.transform.position;
         gameManager.movementEnabled = true;
         StartCoroutine(cameraMovement.resetCamera(0.05f));
-        
-        
-        
-        
+
+        gameManager.checkpointsEnabled = false;
 
     }
 }

@@ -21,7 +21,7 @@ public class defaultCheckpoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!triggered) {
+        if (!triggered && gameManager.checkpointsEnabled) {
             triggered = true;
             gameManager.resetPosition = location.transform.position;
             gameManager.resetRotationY = location.transform.rotation.eulerAngles.y;

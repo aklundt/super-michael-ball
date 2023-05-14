@@ -2,9 +2,11 @@ using OpenCover.Framework.Model;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.Video;
+using static UnityEditor.IMGUI.Controls.PrimitiveBoundsHandle;
 
 public class gameManager : MonoBehaviour
 {
@@ -24,6 +26,7 @@ public class gameManager : MonoBehaviour
     public VideoClip textBoxOpen;
     public VideoClip textBoxClose;
     public Material glowingWhite;
+    public TextMeshProUGUI timer;
 
     public float primaryHorizontalInput;
     public float primaryVerticalInput;
@@ -36,6 +39,11 @@ public class gameManager : MonoBehaviour
     public bool xboxRightBumperDown;
 
     public int gameStatus;
+    public float levelTimer;
+    public float globalTimer;
+    public bool checkpointsEnabled;
+    public float moveSensitivity;
+    public float cameraSensitivity;
     public int frameRate;
 
     public Vector3 resetPosition;
@@ -49,8 +57,11 @@ public class gameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         gameStatus = PlayerPrefs.GetInt("gameState");
+        globalTimer = PlayerPrefs.GetFloat("globalTimer");
+        setPreferenceDefaultsIfNeeded();
+        moveSensitivity = PlayerPrefs.GetFloat("moveSensitivity");
+        cameraSensitivity = PlayerPrefs.GetFloat("cameraSensitivity");
         staticInRenderer.Release();
         staticOutRenderer.Release();
         textBoxRenderer.Release();
@@ -62,15 +73,34 @@ public class gameManager : MonoBehaviour
     void Update()
     {
         checkInput();
+        if (!paused && !textBoxOngoing) {
+            levelTimer += Time.deltaTime;
+            PlayerPrefs.SetFloat("globalTimer", globalTimer += Time.deltaTime);
+            if (timer != null) {
+                timer.text = "TIMER: " + System.Math.Round(levelTimer, 2);
+            }
+            
+        }
+        
         Application.targetFrameRate = frameRate;
+    }
+
+    void setPreferenceDefaultsIfNeeded() {
+        if (PlayerPrefs.GetFloat("moveSensitivity") == 0) {
+            PlayerPrefs.SetFloat("moveSensitivity", 1);
+        }
+        if (PlayerPrefs.GetFloat("cameraSensitivity") == 0)
+        {
+            PlayerPrefs.SetFloat("cameraSensitivity", 1);
+        }
     }
 
     void checkInput()
     {
-        primaryHorizontalInput = Input.GetAxis("Horizontal");
-        primaryVerticalInput = Input.GetAxis("Vertical");
-        secondaryHorizontalInput = Input.GetAxis("Secondary Horizontal");
-        secondaryVerticalInput = Input.GetAxis("Secondary Vertical");
+        primaryHorizontalInput = Input.GetAxis("Horizontal") * moveSensitivity;
+        primaryVerticalInput = Input.GetAxis("Vertical") * moveSensitivity;
+        secondaryHorizontalInput = Input.GetAxis("Secondary Horizontal") * cameraSensitivity;
+        secondaryVerticalInput = Input.GetAxis("Secondary Vertical") * cameraSensitivity;
         escDown = Input.GetKeyDown(KeyCode.Escape);
         xboxA = Input.GetButton("XboxA");
         xboxADown = Input.GetButtonDown("XboxA");
