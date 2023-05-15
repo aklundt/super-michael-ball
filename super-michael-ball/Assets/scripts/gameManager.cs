@@ -79,6 +79,10 @@ public class gameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (player.transform.position.y < -600) {
+            Debug.Log(player.transform.position.x);
+        }
+
         checkInput();
         // update timer
         if (!paused && !textBoxOngoing && !levelFinished) {

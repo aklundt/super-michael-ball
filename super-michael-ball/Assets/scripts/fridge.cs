@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
@@ -17,6 +18,7 @@ public class fridge : MonoBehaviour
 
     public GameObject destination;
     public GameObject target;
+    public GameObject bodyPart;
     public int doorNumberToUnlock;
 
     // Start is called before the first frame update
@@ -50,11 +52,21 @@ public class fridge : MonoBehaviour
             triggered = true;
             gameManager.movementEnabled = false;
             gameManager.erasePlayerForces();
+            StartCoroutine(speedUpBodyPartSpin());
             StartCoroutine(cameraOBJ.GetComponent<cameraMovement>().moveCameraTo(destination, 0.05f));
             StartCoroutine(cameraOBJ.GetComponent<cameraMovement>().rotateTo(target, 0.05f));
             StartCoroutine(waitAndReturnToLobby());
         }
     }
+    IEnumerator speedUpBodyPartSpin() {
+        while (true) {
+            bodyPart.GetComponent<spin>().spinSpeed *= 1.001f;
+            yield return null;
+        }
+        
+    }
+
+    
 
     // update game info and return to lobby
     IEnumerator waitAndReturnToLobby() {
@@ -72,8 +84,8 @@ public class fridge : MonoBehaviour
         // or greater than last time
         // or checkpoints were enabled last time and disabled this time
         // update time
-        if (PlayerPrefs.GetFloat("level1Time") == 0 || 
-            gameManager.levelTimer < PlayerPrefs.GetFloat("level1Time") || 
+        if (PlayerPrefs.GetFloat("level" + (doorNumberToUnlock - 1) + "Time") == 0 || 
+            gameManager.levelTimer < PlayerPrefs.GetFloat("level" + (doorNumberToUnlock - 1) + "Time") || 
             PlayerPrefs.GetInt("level" + (doorNumberToUnlock - 1) + "CheckpointsEnabled") == 1 && gameManager.checkpointsEnabled == false) {
             PlayerPrefs.SetFloat("level" + (doorNumberToUnlock - 1) + "Time", gameManager.levelTimer);
         }
