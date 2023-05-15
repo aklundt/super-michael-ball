@@ -996,7 +996,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 302815542}
-  sceneDestination: 
+  sceneDestination: Level2
   cameraEmpty: {fileID: 1865713466}
   doorNumber: 2
 --- !u!64 &184015685
