@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class boxTrigger : MonoBehaviour
 {
+    // DISCLAIMER
+    // this code is JANK, but it works.
     public gameManager gameManager;
 
     GameObject cameraOBJ;
@@ -57,7 +59,7 @@ public class boxTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // if triggered, freeze player, reveal horrific level, and start counting deaths in Update()
+        // if triggered for the first time, freeze player, reveal horrific level, and start counting deaths in Update()
         if (!triggered)
         {
             initialDeathCount = deathPlane.deaths;
@@ -120,7 +122,7 @@ public class boxTrigger : MonoBehaviour
         gameManager.movementEnabled = true;
         StartCoroutine(cameraMovement.resetCamera(0.05f));
 
-        gameManager.checkpointsEnabled = false;
+        
 
     }
 }

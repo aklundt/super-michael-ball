@@ -19,6 +19,13 @@ public class makiBody : MonoBehaviour
         
     }
 
+
+    // DO NOT MAKE FUN OF ME FOR THIS CODE
+    // I KNOW I CAN MAKE IT EASIER WITH LISTS
+    // I DONT WANT TO
+    // I DONT WANT TO
+    // I DONT WANT TO
+    // make maki's body parts correlate with the gameStatus
     IEnumerator nextFrameStart() {
         yield return new WaitForEndOfFrame();
         if (gameManager.gameStatus > 1)

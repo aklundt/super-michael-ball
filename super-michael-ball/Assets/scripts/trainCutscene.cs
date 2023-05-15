@@ -19,7 +19,6 @@ public class trainCutscene : MonoBehaviour
     public GameObject cameraDestination;
     public GameObject trainObj;
     public GameObject twinklePrefab;
-    public GameObject whiteboxObj;
     public DialogueObject footStuckLines;
     bool lookAtPlayer;
     bool cutScenePlayedOnce;

@@ -107,7 +107,7 @@ public class pauseUI : MonoBehaviour
         }
         else { lobbyButton.interactable = true; }
 
-        globalTimer.text = "TIME: " + toReadableTime(gameManager.globalTimer);
+        globalTimer.text = "TIME: " + gameManager.toReadableTime(gameManager.globalTimer);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         pauseUIHolder.SetActive(true);
@@ -225,18 +225,5 @@ public class pauseUI : MonoBehaviour
         
     }
 
-    public string toReadableTime(float timeInSeconds) {
-        float hours = 0;
-        float minutes = 0;
-        float seconds = 0;
-        if (timeInSeconds > 60) { 
-            minutes = (float)System.Math.Truncate(timeInSeconds / 60);
-            if (minutes > 60) {
-                hours = (float)System.Math.Truncate(minutes / 60);
-                minutes = (minutes - (60 * hours));
-            }
-        }
-        seconds = (timeInSeconds - (3600 * hours) - (minutes * 60));
-        return hours.ToString("00") + ":" + minutes.ToString("00") + ":" + seconds.ToString("00.00");
-    }
+    
 }

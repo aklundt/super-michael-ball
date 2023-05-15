@@ -2,18 +2,21 @@ using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Video;
 
 public class NPCController : MonoBehaviour
 {
-    public TextMeshProUGUI dialogueBoxTMP;
-    public TextMeshProUGUI dialogueCharacterName;
+    //public TextMeshProUGUI dialogueBoxTMP;
+    //public TextMeshProUGUI dialogueCharacterName;
     public DialogueObject dialogueLines;
     public gameManager gameManager;
-    dialogueTyper dialogueTyper;
+    narratorDialogue narratorDialogue;
+    public float talkDistance;
+    RawImage aIcon;
+    //dialogueTyper dialogueTyper;
     GameObject player;
     GameObject gravityController;
-    bool xboxA;
     VideoPlayer textBox;
     VideoClip textBoxOpen;
     VideoClip textBoxClose;
@@ -27,43 +30,39 @@ public class NPCController : MonoBehaviour
         textBox = gameManager.textBox;
         textBoxOpen = gameManager.textBoxOpen;
         textBoxClose = gameManager.textBoxClose;
-        //dialogueBox 
+        narratorDialogue = gameManager.gameObject.GetComponent<narratorDialogue>();
+        aIcon = narratorDialogue.aIcon;
     }
 
     // Update is called once per frame
     void Update()
     {
-        xboxA = Input.GetButtonDown("XboxA");
-        if (Input.GetKeyDown(KeyCode.Return) && (player.transform.position - transform.position).magnitude <= 6 && !gameManager.textBoxOngoing || Input.GetButtonDown("XboxA") && (player.transform.position - transform.position).magnitude <= 6 && !gameManager.textBoxOngoing)
+        if (Input.GetKeyDown(KeyCode.Return) && (player.transform.position - transform.position).magnitude <= talkDistance && !gameManager.textBoxOngoing || 
+            Input.GetButtonDown("XboxA") && (player.transform.position - transform.position).magnitude <= talkDistance && !gameManager.textBoxOngoing)
         {
-            openDialogueBox(); 
-            textBox.clip = textBoxOpen;
-            textBox.Play();
-            dialogueTyper = gameManager.GetComponent<dialogueTyper>();
-            StartCoroutine(StepThroughDialogue(dialogueLines));
+            Debug.Log("presseed");
+            gameManager.GetComponent<narratorDialogue>().Run(dialogueLines);
+            //dialogueTyper = gameManager.GetComponent<dialogueTyper>();
+            pauseMovementAndLookAtNPC(); 
+            //StartCoroutine(narratorDialogue.StepThroughDialogue(dialogueLines));
+            StartCoroutine(waitToEnableMovement());
         }
     }
 
 
-    private void openDialogueBox () // I will beat Grayson into making pretty little animations. Maybe we should move these to a different script
+    private void pauseMovementAndLookAtNPC() // I will beat Grayson into making pretty little animations. Maybe we should move these to a different script
     {
         player.GetComponent<Rigidbody>().velocity = Vector3.zero;
         player.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-        gameManager.textBoxOngoing = true;
-        dialogueCharacterName.text = dialogueLines.ActorName;
         StartCoroutine(alignCameraToNPC());
     }
 
-    private void closeDialogueBox() // ^ last comment
-    {
-        gameManager.textBoxOngoing = false;
-        textBox.clip = textBoxClose;
-        textBox.Play();
-        dialogueBoxTMP.text = "";
-        gameManager.GetComponent<gameManager>().textBoxOngoing = false;
+    private IEnumerator waitToEnableMovement() {
+        while (gameManager.textBoxOngoing) { 
+            yield return null;
+        }
         player.GetComponent<Rigidbody>().velocity = Vector3.zero;
         player.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-        dialogueBoxTMP.text = "";
     }
 
     private float rotationToNPC ()
@@ -92,15 +91,4 @@ public class NPCController : MonoBehaviour
         
     }
 
-    private IEnumerator StepThroughDialogue(DialogueObject dialogueObject)
-    {
-        yield return new WaitForSeconds(1);
-        foreach (string dialogue in dialogueObject.Dialogue)
-        {
-            yield return dialogueTyper.Run(dialogue, dialogueBoxTMP);
-            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || gameManager.xboxADown); 
-        }
-        closeDialogueBox();
-        yield break;
-    }
 }

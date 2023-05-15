@@ -9,6 +9,8 @@ public class defaultNarratorTrigger : MonoBehaviour
     public DialogueObject dialogueLines;
     public GameObject destination;
     public GameObject target;
+    public bool oneTimeTrigger;
+    public string triggerName;
     cameraMovement cameraMovement;
 
     bool triggered;
@@ -24,10 +26,15 @@ public class defaultNarratorTrigger : MonoBehaviour
         
     }
 
+    // if triggered move camera and start dialogue
     private void OnTriggerEnter(Collider other)
     {
         if (!triggered) {
             triggered = true;
+            if (oneTimeTrigger && PlayerPrefs.GetInt(triggerName + "Triggered") == 1) {
+                return;
+            }
+            PlayerPrefs.SetInt(triggerName + "Triggered", 1);
             gameManager.movementEnabled = false;
             gameManager.erasePlayerForces();
             gameManager.player.GetComponent<Rigidbody>().drag = 5;
@@ -35,10 +42,10 @@ public class defaultNarratorTrigger : MonoBehaviour
             StartCoroutine(cameraMovement.rotateTo(target, 0.05f));
             gameManager.GetComponent<narratorDialogue>().Run(dialogueLines);
             StartCoroutine(waitForDialogueEnd());
-            
         }
         
     }
+    // after dialogue ends, move camera back and resume game
     private IEnumerator waitForDialogueEnd() {
         while (gameManager.textBoxOngoing)
         {

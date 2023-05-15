@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class lobbyDoorFunction : MonoBehaviour
 {
@@ -12,7 +13,8 @@ public class lobbyDoorFunction : MonoBehaviour
     GameObject cameraOBJ;
     GameObject player;
     VideoPlayer doorTransition;
-    
+    TextMeshPro time;
+    GameObject checkpoint;
 
     public string sceneDestination;
     public GameObject cameraEmpty;
@@ -24,19 +26,27 @@ public class lobbyDoorFunction : MonoBehaviour
         cameraOBJ = gameManager.GetComponent<gameManager>().cameraOBJ;
         player = gameManager.GetComponent<gameManager>().player;
         doorTransition = gameManager.GetComponent<gameManager>().doorTransition;
+        time = transform.Find("time").gameObject.GetComponent<TextMeshPro>();
+        checkpoint = transform.Find("checkpoint").gameObject;
+        time.text = gameManager.toReadableTime(PlayerPrefs.GetFloat("level" + doorNumber + "Time"));
+        if (PlayerPrefs.GetInt("level" + doorNumber + "CheckpointsEnabled") == 1) { 
+            checkpoint.SetActive(true);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        // if door should be unlocked...... unlock it
         if (doorNumber <= gameManager.GetComponent<gameManager>().gameStatus)
         {
             gameObject.GetComponent<MeshCollider>().isTrigger = true;
             gameObject.GetComponent<MeshRenderer>().material = gameManager.GetComponent<gameManager>().glowingWhite;
-            transform.GetChild(0).gameObject.SetActive(true);
+            transform.Find("Point Light").gameObject.SetActive(true);
         }
     }
 
+    // if touched, enter level
     private void OnTriggerEnter(Collider other)
     {
           gameManager.GetComponent<gameManager>().movementEnabled = false;
@@ -47,11 +57,10 @@ public class lobbyDoorFunction : MonoBehaviour
         
     }
 
+    // kind of unnecessary now, but makes player disappear even if they are visible to make it feel more like "entering" a level
     private IEnumerator disablePlayer() {
         float time = 0;
-        //MeshRenderer playerRenderer = player.GetComponent<MeshRenderer>();
         while (time < 1) {
-            //playerRenderer.material.color = new Color(1f, 1f, 1f, playerRenderer.material.color.a + (1f * Time.deltaTime));
             time += Time.deltaTime;
             yield return null;
         }
@@ -59,6 +68,7 @@ public class lobbyDoorFunction : MonoBehaviour
         yield return null;
     }
 
+    // move camera to the door and start moving camera forward
     private IEnumerator doorEnter() {
         yield return new WaitForSeconds(3);
         Vector3 destination = cameraOBJ.transform.position + cameraOBJ.transform.forward * 10;
@@ -70,6 +80,7 @@ public class lobbyDoorFunction : MonoBehaviour
         yield return null;
     }
 
+    // transition and load level
     private IEnumerator transitionVideoAndSceneChange() {
         doorTransition.Play();
         yield return new WaitForSeconds(0.5f);

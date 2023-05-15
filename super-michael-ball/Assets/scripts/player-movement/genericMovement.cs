@@ -22,7 +22,7 @@ public class genericMovement : MonoBehaviour
     public float gravStabilizationFactor;
     public float cameraStabilizationFactor;
 
-    public GameObject player;
+    GameObject player;
     public gameManager gameManager;
 
     private Transform cameraObj;
@@ -31,6 +31,7 @@ public class genericMovement : MonoBehaviour
     // start is called before the first frame update
     void Start()
     {
+        player = gameManager.player;
         gravityTarget = transform.GetChild(0);
         cameraObj = transform.GetChild(1).GetChild(0);
         

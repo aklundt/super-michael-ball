@@ -18,6 +18,7 @@ public class fridge : MonoBehaviour
     public GameObject destination;
     public GameObject target;
     public int doorNumberToUnlock;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +34,7 @@ public class fridge : MonoBehaviour
         checkProximity();
     }
 
+    // if player approaches fridge, play opening animation
     private void checkProximity() {
         if (Vector3.Distance(player.transform.position, transform.position) < 20) {
 
@@ -40,9 +42,11 @@ public class fridge : MonoBehaviour
         }
     }
 
+    // on collision, zoom in on freezer and wait to return to lobby
     private void OnCollisionEnter(Collision collision)
     {
         if (!triggered) {
+            gameManager.levelFinished = true;
             triggered = true;
             gameManager.movementEnabled = false;
             gameManager.erasePlayerForces();
@@ -52,6 +56,7 @@ public class fridge : MonoBehaviour
         }
     }
 
+    // update game info and return to lobby
     IEnumerator waitAndReturnToLobby() {
         
         yield return new WaitForSeconds(4);
@@ -63,7 +68,18 @@ public class fridge : MonoBehaviour
         if (PlayerPrefs.GetInt("gameState") < doorNumberToUnlock) {
             PlayerPrefs.SetInt("gameState", doorNumberToUnlock);
         }
-        
+        // if time is the first time
+        // or greater than last time
+        // or checkpoints were enabled last time and disabled this time
+        // update time
+        if (PlayerPrefs.GetFloat("level1Time") == 0 || 
+            gameManager.levelTimer < PlayerPrefs.GetFloat("level1Time") || 
+            PlayerPrefs.GetInt("level" + (doorNumberToUnlock - 1) + "CheckpointsEnabled") == 1 && gameManager.checkpointsEnabled == false) {
+            PlayerPrefs.SetFloat("level" + (doorNumberToUnlock - 1) + "Time", gameManager.levelTimer);
+        }
+        PlayerPrefs.SetInt("level" + (doorNumberToUnlock - 1) + "CheckpointsEnabled", (gameManager.checkpointsEnabled ? 1 : 0));
+        if (doorNumberToUnlock == 2) { PlayerPrefs.SetString("checkpointsToggle", "disabled"); }
+
         SceneManager.LoadScene("DreamLobby");
     }
 }

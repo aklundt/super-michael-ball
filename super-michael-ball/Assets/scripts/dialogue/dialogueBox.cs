@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class dialogueBox : MonoBehaviour
 {
+
+    // This script moves the dialogue box with camera input just for funsies
     enum axis { X, Y, Z }
 
     float secondaryHorizontalInput;
