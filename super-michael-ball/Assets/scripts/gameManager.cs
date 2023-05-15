@@ -134,6 +134,9 @@ public class gameManager : MonoBehaviour
         player.GetComponent<Rigidbody>().velocity = Vector3.zero;
         player.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         gravityController.transform.rotation = Quaternion.Euler(new Vector3(0, resetRotationY, 0));
+        if (!checkpointsEnabled) {
+            levelTimer = 0;
+        }
     }
 
     // removes all forces on the player and levels gravityController balance
