@@ -44,6 +44,7 @@ public class trainCutscene : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!cutScenePlayedOnce) {
+            trainObj.SetActive(true);
             cutScenePlayedOnce = true;
             PlayerPrefs.SetInt("gameState", 1);
             gameManager.GetComponent<narratorDialogue>().Run(footStuckLines);

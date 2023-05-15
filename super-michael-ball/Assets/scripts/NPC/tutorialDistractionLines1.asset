@@ -15,9 +15,5 @@ MonoBehaviour:
   dialogue:
   - it seems that you've got the hang of it!
   - let's try something a little harder...
-  - 'GOOD LUCK!
-
-
-
-    :)'
+  - GOOD LUCK! :)
   actorName: Narrator

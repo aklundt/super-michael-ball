@@ -45,7 +45,7 @@ public class boxTrigger : MonoBehaviour
         // then start second part of cutscene and move player
         if (triggered) {
             if (deathPlane.deaths > initialDeathCount + 1) {
-                if (gameManager.gravityController.transform.position.y > -240) {
+                if (gameManager.gravityController.transform.position.y > -380) {
                     gameManager.movementEnabled = false;
                     gameManager.erasePlayerForces();
                     StartCoroutine(cameraMovement.moveCameraTo(cameraDestination, 0.05f));

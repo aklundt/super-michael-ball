@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: tutorialLine1
   m_EditorClassIdentifier: 
   dialogue:
-  - Hey there player, welcome to the first level!
-  - Actually, It's more of a tutorial here in order to show you some basic mechanics
-    that you'll need to be able to find Maki.
-  - "Go ahead and move around the map. \n\nGet used to the controls you fat lard.\n"
+  - Hey there player, welcome to the first room!
+  - Go ahead and move around the map.
+  - 'Get used to the controls you fat lard.
+
+'
   - 'Follow Maki''s pawprints to find her!
 
 '

@@ -6,6 +6,7 @@ using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class titleScreenUI : MonoBehaviour
 {
@@ -14,37 +15,37 @@ public class titleScreenUI : MonoBehaviour
     public gameManager gameManager;
     public GameObject confirmationTab;
     public GameObject overlay;
+    public VideoPlayer background;
+    public VideoClip startScreenStart;
     string confirmationFunction;
+
+    public GameObject[] buttons;
     // Start is called before the first frame update
     void Start()
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-
     }
 
-    public void moveToScene(int sceneNum)
+    public void startButton()
     {
-        if (PlayerPrefs.GetInt("gameState") == 0)
-        {
-            SceneManager.LoadScene("RealWorldHouse");
+        foreach (GameObject button in buttons) {
+            button.SetActive(false);
         }
-        else
-        {
-            SceneManager.LoadScene("DreamLobby");
-        }
-
-    }
-
-    public void resetData()
-    {
+        background.clip = startScreenStart;
+        background.Play();
+        background.isLooping = false;
+        StartCoroutine(waitForAnimationEnd());
         
+
     }
+
 
     public void openConfirmation(string function)
     {
@@ -66,6 +67,31 @@ public class titleScreenUI : MonoBehaviour
     }
     public void yesConfirmationButton() {
         StartCoroutine(yesConfirmation());
+    }
+
+    IEnumerator waitForAnimationEnd() {
+        yield return new WaitForSeconds(0.2f);
+        if (PlayerPrefs.GetInt("gameState") > 0)
+        {
+            while (background.frame < 100)
+            {
+                yield return null;
+            }
+        }
+        else {
+            while(background.isPlaying) {
+                yield return null;
+            }
+        }
+        
+        if (PlayerPrefs.GetInt("gameState") == 0)
+        {
+            SceneManager.LoadScene("RealWorldHouse");
+        }
+        else
+        {
+            SceneManager.LoadScene("DreamLobby");
+        }
     }
     IEnumerator yesConfirmation() {
         if (confirmationFunction == "reset")

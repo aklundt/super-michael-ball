@@ -10,12 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f8720fdebcd5f224db406639b073cd7c, type: 3}
-  m_Name: tutorialLine2
+  m_Name: gameStartMaki
   m_EditorClassIdentifier: 
   dialogue:
-  - Yikes, it looks like you fell down.
-  - That's okay!
-  - Holding down A + Right Trigger will allow you to teleport back up.
-  - Alternatively you could use Shift + R.
-  - Try riding down the ramp again with a little more speed this time!
+  - MAKI RAN AWAY!
+  - YOU HAVE TO GO FIND HER!
   actorName: Narrator
