@@ -3993,7 +3993,7 @@ MonoBehaviour:
   destination: {fileID: 1910600954}
   target: {fileID: 610714107}
   bodyPart: {fileID: 1813718400}
-  doorNumberToUnlock: 6
+  doorNumberToUnlock: 8
 --- !u!95 &1166404345
 Animator:
   serializedVersion: 5
@@ -6895,7 +6895,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1813718400}
-  m_Mesh: {fileID: 8182081886332258447, guid: 9b2dc176d7beeb548ade92e86ab72f8c, type: 3}
+  m_Mesh: {fileID: 7371505764856802642, guid: 9b2dc176d7beeb548ade92e86ab72f8c, type: 3}
 --- !u!4 &1813718404
 Transform:
   m_ObjectHideFlags: 0
