@@ -26,6 +26,7 @@ public class gameManager : MonoBehaviour
     public VideoClip textBoxClose;
     public Material glowingWhite;
     public TextMeshProUGUI timer;
+    public Light directionalLight;
 
     public float primaryHorizontalInput;
     public float primaryVerticalInput;
@@ -73,6 +74,10 @@ public class gameManager : MonoBehaviour
 
         // transition smoothly into the scene
         StartCoroutine(transitionStatic(false, true, true));
+
+        if (gameStatus == 8) { 
+            
+        }
     }
 
     // Update is called once per frame

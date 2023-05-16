@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: c07b0aff901620446ba4d0a140ffd3df, type: 2}
+  m_LightingDataAsset: {fileID: 112000022, guid: 8642e235a9f45234b9bd047165951de2, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -3755,7 +3755,7 @@ PrefabInstance:
     - target: {fileID: -7071499865077042161, guid: c78d5200992253c429191c84d0d0fa2e, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 436373dbc80dd4b44ab3e044e09517c6, type: 2}
+      objectReference: {fileID: 2100000, guid: 38e1fd8fe399bac4cbad8ac48952579d, type: 2}
     - target: {fileID: -6228358874800334288, guid: c78d5200992253c429191c84d0d0fa2e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 45.17
@@ -3795,7 +3795,7 @@ PrefabInstance:
     - target: {fileID: -5533067016775014584, guid: c78d5200992253c429191c84d0d0fa2e, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 436373dbc80dd4b44ab3e044e09517c6, type: 2}
+      objectReference: {fileID: 2100000, guid: 38e1fd8fe399bac4cbad8ac48952579d, type: 2}
     - target: {fileID: 574703298033784984, guid: c78d5200992253c429191c84d0d0fa2e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 57.98
@@ -3875,11 +3875,11 @@ PrefabInstance:
     - target: {fileID: 1827158182971151514, guid: c78d5200992253c429191c84d0d0fa2e, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 436373dbc80dd4b44ab3e044e09517c6, type: 2}
+      objectReference: {fileID: 2100000, guid: 38e1fd8fe399bac4cbad8ac48952579d, type: 2}
     - target: {fileID: 3318611092135847830, guid: c78d5200992253c429191c84d0d0fa2e, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 436373dbc80dd4b44ab3e044e09517c6, type: 2}
+      objectReference: {fileID: 2100000, guid: 38e1fd8fe399bac4cbad8ac48952579d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c78d5200992253c429191c84d0d0fa2e, type: 3}
 --- !u!4 &1142497015 stripped
@@ -5632,7 +5632,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
@@ -5996,7 +5995,7 @@ MonoBehaviour:
   doorNumberToUnlock: 5
 --- !u!95 &1637042554
 Animator:
-  serializedVersion: 5
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -6013,8 +6012,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!65 &1637042555
 BoxCollider:
   m_ObjectHideFlags: 0

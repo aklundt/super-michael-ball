@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000004, guid: 60d2f8ec6fab58c438e0c2d259221b98, type: 2}
+  m_LightingDataAsset: {fileID: 112000020, guid: 8642e235a9f45234b9bd047165951de2, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -296,7 +296,7 @@ MonoBehaviour:
   doorNumberToUnlock: 3
 --- !u!95 &70720708
 Animator:
-  serializedVersion: 5
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -313,8 +313,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!65 &70720709
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2176,11 +2175,11 @@ PrefabInstance:
     - target: {fileID: -8513894679676805079, guid: f1fa1ed0442727e48b4314c03fd6d9fa, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: afb7a76e33e7a924cbcc95c535c2b1e5, type: 2}
+      objectReference: {fileID: 2100000, guid: 07b621f03b95b1b4fb7c40e33e2e2acf, type: 2}
     - target: {fileID: -5533067016775014584, guid: f1fa1ed0442727e48b4314c03fd6d9fa, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: afb7a76e33e7a924cbcc95c535c2b1e5, type: 2}
+      objectReference: {fileID: 2100000, guid: 07b621f03b95b1b4fb7c40e33e2e2acf, type: 2}
     - target: {fileID: -2619552312011935225, guid: f1fa1ed0442727e48b4314c03fd6d9fa, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.6001267
@@ -2252,7 +2251,7 @@ PrefabInstance:
     - target: {fileID: 5139025246403208734, guid: f1fa1ed0442727e48b4314c03fd6d9fa, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: afb7a76e33e7a924cbcc95c535c2b1e5, type: 2}
+      objectReference: {fileID: 2100000, guid: 07b621f03b95b1b4fb7c40e33e2e2acf, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1fa1ed0442727e48b4314c03fd6d9fa, type: 3}
 --- !u!4 &540452738 stripped
@@ -2791,7 +2790,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
