@@ -21,4 +21,14 @@ public class spin : MonoBehaviour
             transform.Rotate(Vector3.Normalize(spinAxis), spinSpeed * Time.deltaTime);
         }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        collision.gameObject.transform.SetParent(transform);
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        collision.gameObject.transform.SetParent(null);
+    }
 }

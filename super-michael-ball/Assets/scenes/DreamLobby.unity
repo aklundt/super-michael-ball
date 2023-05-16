@@ -214,7 +214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 302815542}
-  sceneDestination: 
+  sceneDestination: Level6
   cameraEmpty: {fileID: 486821422}
   doorNumber: 6
 --- !u!64 &40750990
@@ -1948,7 +1948,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 302815542}
-  sceneDestination: 
+  sceneDestination: Level8
   cameraEmpty: {fileID: 486821422}
   doorNumber: 8
 --- !u!64 &408420841
@@ -6573,7 +6573,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 302815542}
-  sceneDestination: 
+  sceneDestination: Level7
   cameraEmpty: {fileID: 698198805}
   doorNumber: 7
 --- !u!64 &1249239501
@@ -8186,7 +8186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 302815542}
-  sceneDestination: 
+  sceneDestination: Level5
   cameraEmpty: {fileID: 698198805}
   doorNumber: 5
 --- !u!64 &1536947751
