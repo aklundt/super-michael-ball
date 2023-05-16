@@ -93,7 +93,7 @@ public class gameManager : MonoBehaviour
             levelTimer += Time.deltaTime;
             PlayerPrefs.SetFloat("globalTimer", globalTimer += Time.deltaTime);
             if (timer != null) {
-                timer.text = "TIMER: " + levelTimer.ToString("0.00");
+                timer.text = "TIMER: " + levelTimer.ToString("0.0");
             }
             
         }
