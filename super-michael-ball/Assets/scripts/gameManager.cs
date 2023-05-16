@@ -1,4 +1,3 @@
-using OpenCover.Framework.Model;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,7 +5,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.Video;
-using static UnityEditor.IMGUI.Controls.PrimitiveBoundsHandle;
 
 public class gameManager : MonoBehaviour
 {

@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
+
 public class NPCController : MonoBehaviour
 {
     //public TextMeshProUGUI dialogueBoxTMP;
@@ -81,7 +82,8 @@ public class NPCController : MonoBehaviour
 
     private IEnumerator alignCameraToNPC ()
     {
-        while (Math.Round(rotationToNPC()) != Math.Round(UnityEditor.TransformUtils.GetInspectorRotation(gravityController.transform).y))
+        while (Math.Round(rotationToNPC()) != Math.Round((gravityController.transform.eulerAngles.y)))
+        //while (Math.Round(rotationToNPC()) != Math.Round(UnityEditor.TransformUtils.GetInspectorRotation(gravityController.transform).y))
         {
             gravityController.transform.rotation = Quaternion.Slerp(gravityController.transform.rotation, Quaternion.Euler(gravityController.transform.rotation.x, rotationToNPC(), gravityController.transform.rotation.y), 0.05f); // LOOK AT THE NUMBER
             yield return new WaitForFixedUpdate();

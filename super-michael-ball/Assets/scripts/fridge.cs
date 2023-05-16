@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
@@ -60,7 +59,7 @@ public class fridge : MonoBehaviour
     }
     IEnumerator speedUpBodyPartSpin() {
         while (true) {
-            bodyPart.GetComponent<spin>().spinSpeed *= 1.001f;
+            bodyPart.GetComponent<spin>().spinSpeed *= (1 + Time.deltaTime);
             yield return null;
         }
         

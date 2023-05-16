@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using Unity.VisualScripting;
-using UnityEditor.EventSystems;
 using UnityEngine;
 
 public class boxTrigger : MonoBehaviour
