@@ -10,12 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f8720fdebcd5f224db406639b073cd7c, type: 3}
-  m_Name: tutorialLine1
+  m_Name: level3Intro
   m_EditorClassIdentifier: 
   dialogue:
-  - Hey there player, welcome to the first room!
-  - Go ahead and move around the map.
-  - 'Get used to the controls you fat lard.
-
-'
+  - 'heres one little tip that might help you out in this level and later ones:'
+  - you move faster when you move diagonally
+  - this can be utilized to travel greater distances, but is harder to control!
   actorName: Narrator

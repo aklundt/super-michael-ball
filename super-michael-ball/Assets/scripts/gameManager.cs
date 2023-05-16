@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using UnityEngine.Video;
 
@@ -137,6 +138,11 @@ public class gameManager : MonoBehaviour
         player.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         gravityController.transform.rotation = Quaternion.Euler(new Vector3(0, resetRotationY, 0));
         if (!checkpointsEnabled) {
+
+            // don't reset time if doing the initial tutorial gag
+            if (SceneManager.GetActiveScene().name == "Level1") {
+                if (GameObject.Find("boxTrigger").GetComponent<boxTrigger>().triggered == true) { return;  }
+            }
             levelTimer = 0;
         }
     }
