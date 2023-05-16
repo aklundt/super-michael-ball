@@ -18,30 +18,26 @@ public class narratorDialogue : MonoBehaviour
     private dialogueTyper dialogueTyper;
     public bool dialogueFinished;
 
-    void Start() {
+    void Start() { // grabbing necessary objects from game manager
         textBox = gameManager.textBox;
         textBoxOpen = gameManager.textBoxOpen;
         textBoxClose = gameManager.textBoxClose;
     }
-    public Coroutine Run(DialogueObject narratorLines)
+    public Coroutine Run(DialogueObject narratorLines) // open dialogue box and start running through dialogue
     {
-        dialogueTyper = gameManager.GetComponent<dialogueTyper>();
+        dialogueTyper = gameManager.GetComponent<dialogueTyper>(); // decide the script to write at the start of each run through of a script.
         openDialogueBox();
         return StartCoroutine(StepThroughDialogue(narratorLines));
     }
 
-    void Update()
+    private void openDialogueBox() // I beat Grayson into making pretty little animations for opening and closing the dialogue box.
     {
-    }
-
-    private void openDialogueBox() // I will beat Grayson into making pretty little animations. Maybe we should move these to a different script
-    {
-        textBox.clip = textBoxOpen;
+        textBox.clip = textBoxOpen; 
         textBox.Play();
         gameManager.textBoxOngoing = true;
     }
 
-    private void closeDialogueBox() // ^ last comment
+    private void closeDialogueBox() // ^ last comment 
     {
         gameManager.textBoxOngoing = false;
         textBox.clip = textBoxClose;
@@ -50,21 +46,21 @@ public class narratorDialogue : MonoBehaviour
     }
 
 
-    public IEnumerator StepThroughDialogue(DialogueObject dialogueObject)
+    public IEnumerator StepThroughDialogue(DialogueObject dialogueObject) // step through the dialogue
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1); // ensures the text doesn't appear until the animation finishes.
        
-        foreach (string dialogue in dialogueObject.Dialogue)
+        foreach (string dialogue in dialogueObject.Dialogue) // run through every string in my dialogueObject and process it.
         {
-            yield return dialogueTyper.Run(dialogue, dialogueBoxTMP);
-            StartCoroutine(fadeAIcon(true));
-            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || gameManager.xboxADown);
+            yield return dialogueTyper.Run(dialogue, dialogueBoxTMP); // send my dialogue typer the string to write and the text box to write in
+            StartCoroutine(fadeAIcon(true)); // "a" button animation on the text box 
+            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || gameManager.xboxADown); // progress through the dialogue on keypresses.
             
         }
-        closeDialogueBox();
+        closeDialogueBox(); // close the box after dialogue completes
         yield break;
     }
-    private IEnumerator fadeAIcon(bool fadeIn) {
+    private IEnumerator fadeAIcon(bool fadeIn) { // shifts the opacity of the "a" button icon on the text box. This will draw the player's attention to it and let them know they can press "a" to progress through the dialogue
         
         if (fadeIn)
         {

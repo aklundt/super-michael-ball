@@ -17,7 +17,7 @@ public class dialogueBox : MonoBehaviour
     private RectTransform rectTransform;
 
     // Start is called before the first frame update
-    void Start()
+    void Start() // grabs the rectTransform of the dialogue box
     {
         rectTransform = this.gameObject.GetComponent<RectTransform>();
     }
@@ -25,16 +25,16 @@ public class dialogueBox : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        grabInput();
+        grabInput(); 
         applyInput();
     }
 
-    void grabInput() {
+    void grabInput() { // grabs controller input
         secondaryVerticalInput = gameManager.secondaryVerticalInput;
         secondaryHorizontalInput = gameManager.secondaryHorizontalInput;
     }
 
-    void applyInput() {
+    void applyInput() { // uses the player input to wiggle the text box
         if (!gameManager.paused) { 
             stabilizeMovement(rectTransform, axis.X, moveStabilizationFactor);
             Vector2 newPosition = rectTransform.anchoredPosition + (new Vector2(secondaryHorizontalInput, secondaryVerticalInput));
