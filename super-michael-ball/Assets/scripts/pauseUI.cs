@@ -93,6 +93,14 @@ public class pauseUI : MonoBehaviour
         }
         updatePreferences();
     }
+
+    void resetCheckpointTriggers() { 
+        foreach (defaultCheckpoint checkpoint in gameManager.checkpoints)
+        {
+            checkpoint.triggered = false;
+
+        }
+    }
     void pauseGame() {
         gameManager.paused = true;
         if (gameManager.movementEnabled == true) { resumeMovementAfterResume = true;  }
@@ -115,14 +123,14 @@ public class pauseUI : MonoBehaviour
 
     private IEnumerator overlayFadeIn() {
         while (overlay.GetComponent<RawImage>().color.a < 0.7f && gameManager.paused) {
-            overlay.GetComponent<RawImage>().color += new Color(0, 0, 0, 0.005f);
+            overlay.GetComponent<RawImage>().color += new Color(0, 0, 0, 1f * Time.unscaledDeltaTime);
             yield return null;
         }
     }
     private IEnumerator overlayFadeOut() { 
         while (overlay.GetComponent<RawImage>().color.a > 0 && !gameManager.paused)
         {
-            overlay.GetComponent<RawImage>().color = new Color(255, 255, 255, overlay.GetComponent<RawImage>().color.a - 0.005f);
+            overlay.GetComponent<RawImage>().color = new Color(255, 255, 255, overlay.GetComponent<RawImage>().color.a - 1f * Time.unscaledDeltaTime);
             yield return null;
         }
     }

@@ -27,6 +27,7 @@ public class gameManager : MonoBehaviour
     public Material glowingWhite;
     public TextMeshProUGUI timer;
     public Light directionalLight;
+    public defaultCheckpoint[] checkpoints;
 
     public float primaryHorizontalInput;
     public float primaryVerticalInput;
@@ -83,10 +84,7 @@ public class gameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player.transform.position.y < -600) {
-            Debug.Log(player.transform.position.x);
-        }
-
+        Debug.Log(player.transform.localScale);
         checkInput();
         // update timer
         if (!paused && !textBoxOngoing && !levelFinished) {
@@ -120,7 +118,7 @@ public class gameManager : MonoBehaviour
         primaryVerticalInput = Input.GetAxis("Vertical") * moveSensitivity;
         secondaryHorizontalInput = Input.GetAxis("Secondary Horizontal") * cameraSensitivity;
         secondaryVerticalInput = Input.GetAxis("Secondary Vertical") * cameraSensitivity;
-        escDown = Input.GetKeyDown(KeyCode.Escape);
+        escDown = Input.GetButtonDown("EscStart");
         xboxA = Input.GetButton("XboxA");
         xboxADown = Input.GetButtonDown("XboxA");
         xboxRightBumper = Input.GetButton("XboxRightBumper");
@@ -135,21 +133,28 @@ public class gameManager : MonoBehaviour
 
     // teleport player to the stored reset position variable with the reset rotationy variable and remove all forces
     void resetPlayer() {
-        player.transform.position = resetPosition;
-        player.transform.rotation = Quaternion.Euler(new Vector3(0, resetRotationY, 0));
+        if (!levelFinished) {
+            player.transform.position = resetPosition;
+            player.transform.rotation = Quaternion.Euler(new Vector3(0, resetRotationY, 0));
 
-        // could technically call erasePlayerForces here instead but that third line is still needed to reset the y rotation, so i'm leaving this
-        player.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        player.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-        gravityController.transform.rotation = Quaternion.Euler(new Vector3(0, resetRotationY, 0));
-        if (!checkpointsEnabled) {
+            // could technically call erasePlayerForces here instead but that third line is still needed to reset the y rotation, so i'm leaving this
+            player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            player.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+            gravityController.transform.rotation = Quaternion.Euler(new Vector3(0, resetRotationY, 0));
+            if (!checkpointsEnabled)
+            {
 
-            // don't reset time if doing the initial tutorial gag
-            if (SceneManager.GetActiveScene().name == "Level1") {
-                if (GameObject.Find("boxTrigger").GetComponent<boxTrigger>().triggered == true) { return;  }
+                // don't reset time if doing the initial tutorial gag
+                if (SceneManager.GetActiveScene().name == "Level1")
+                {
+                    if (GameObject.Find("boxTrigger").GetComponent<boxTrigger>().triggered == true) { return; }
+                }
+                levelTimer = 0;
+
+
             }
-            levelTimer = 0;
         }
+        
     }
 
     // removes all forces on the player and levels gravityController balance
@@ -176,7 +181,9 @@ public class gameManager : MonoBehaviour
         }
         if (xboxA && xboxRightBumper && staticIn.frame == (long)staticIn.frameCount - 1)
         {
+            cameraWhite.SetActive(true);
             StartCoroutine(transitionStatic(false, true, true));
+            
         }
         else {
             staticIn.Stop();
@@ -191,7 +198,8 @@ public class gameManager : MonoBehaviour
     public IEnumerator transitionStatic(bool fadeIn, bool reset, bool fadeOut) {
         if (fadeIn) {
             staticIn.Play();
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.5f); cameraWhite.SetActive(false);
+            cameraWhite.SetActive(true);
             while (staticIn.isPlaying)
             {
                 yield return null;
@@ -210,16 +218,17 @@ public class gameManager : MonoBehaviour
             while (staticOut.frame < 1) {
                 yield return null;
             }
-            cameraWhite.SetActive(false);
-            if (timer != null) {
+
+            if (timer != null)
+            {
                 timer.gameObject.SetActive(true);
             }
-            
 
             // hide staticIn
             staticIn.frame = 0;
             staticInRenderer.Release();
-
+            yield return new WaitForSeconds(0.1f);
+            cameraWhite.SetActive(false);
             while (staticOut.isPlaying)
             {
                 yield return null;

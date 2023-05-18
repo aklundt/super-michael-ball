@@ -6,7 +6,7 @@ public class defaultCheckpoint : MonoBehaviour
 {
     public gameManager gameManager;
     public GameObject location;
-    bool triggered;
+    public bool triggered;
     // Start is called before the first frame update
     void Start()
     {

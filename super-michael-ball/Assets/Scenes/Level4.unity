@@ -570,6 +570,8 @@ MonoBehaviour:
   glowingWhite: {fileID: 0}
   timer: {fileID: 563781408}
   directionalLight: {fileID: 0}
+  checkpoints:
+  - {fileID: 886970116}
   primaryHorizontalInput: 0
   primaryVerticalInput: 0
   secondaryHorizontalInput: 0
@@ -2860,6 +2862,17 @@ PrefabInstance:
       objectReference: {fileID: 236458779}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07d6f9bee1f062a468450394020772d9, type: 3}
+--- !u!114 &886970116 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6072775823868108387, guid: 07d6f9bee1f062a468450394020772d9, type: 3}
+  m_PrefabInstance: {fileID: 886970115}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3c98ebde4101ab478e25ac570c909c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &909059726
 GameObject:
   m_ObjectHideFlags: 0
@@ -5633,6 +5646,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
@@ -5996,7 +6010,7 @@ MonoBehaviour:
   doorNumberToUnlock: 5
 --- !u!95 &1637042554
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -6013,7 +6027,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!65 &1637042555
 BoxCollider:
   m_ObjectHideFlags: 0

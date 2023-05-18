@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -966,6 +966,28 @@ VideoPlayer:
   m_WaitForFirstFrame: 1
   m_FrameReadyEventEnabled: 0
   m_VideoShaders: []
+--- !u!114 &181629006 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6072775823868108387, guid: 07d6f9bee1f062a468450394020772d9, type: 3}
+  m_PrefabInstance: {fileID: 986518325}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3c98ebde4101ab478e25ac570c909c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &187470604 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6072775823868108387, guid: 07d6f9bee1f062a468450394020772d9, type: 3}
+  m_PrefabInstance: {fileID: 8110899270101691499}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3c98ebde4101ab478e25ac570c909c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &192448189
 GameObject:
   m_ObjectHideFlags: 0
@@ -3027,7 +3049,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7942441605223514651, guid: 1ea2c61760558c54e977d776fe1e6710, type: 3}
       propertyPath: m_LocalScale.x
-      value: 28.66
+      value: 67.4
       objectReference: {fileID: 0}
     - target: {fileID: 7942441605223514651, guid: 1ea2c61760558c54e977d776fe1e6710, type: 3}
       propertyPath: m_LocalScale.y
@@ -3039,7 +3061,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7942441605223514651, guid: 1ea2c61760558c54e977d776fe1e6710, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -38.9
+      value: -54.75
       objectReference: {fileID: 0}
     - target: {fileID: 7942441605223514651, guid: 1ea2c61760558c54e977d776fe1e6710, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5052,6 +5074,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
@@ -5089,6 +5112,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1305453437 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6072775823868108387, guid: 07d6f9bee1f062a468450394020772d9, type: 3}
+  m_PrefabInstance: {fileID: 2136083144}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3c98ebde4101ab478e25ac570c909c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1345571162
 GameObject:
   m_ObjectHideFlags: 0
@@ -5878,7 +5912,7 @@ CanvasRenderer:
   m_CullTransparentMesh: 1
 --- !u!95 &1520846105
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5895,7 +5929,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &1520846106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7017,6 +7052,11 @@ MonoBehaviour:
   textBoxClose: {fileID: 32900000, guid: e182ba418b7e04e4dacaffe6519ea4a0, type: 3}
   glowingWhite: {fileID: 0}
   timer: {fileID: 551524706}
+  directionalLight: {fileID: 0}
+  checkpoints:
+  - {fileID: 187470604}
+  - {fileID: 1305453437}
+  - {fileID: 181629006}
   primaryHorizontalInput: 0
   primaryVerticalInput: 0
   secondaryHorizontalInput: 0

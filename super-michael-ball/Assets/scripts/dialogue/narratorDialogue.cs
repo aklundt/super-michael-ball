@@ -66,7 +66,7 @@ public class narratorDialogue : MonoBehaviour
         {
             while (gameManager.textBoxOngoing)
             {
-                if (aIcon.color.a < 1) { aIcon.color = aIcon.color + new Color(0, 0, 0, 0.003f); }
+                if (aIcon.color.a < 1) { aIcon.color = aIcon.color + new Color(0, 0, 0, 1f * Time.deltaTime); }
                 yield return null;
             }
             StartCoroutine(fadeAIcon(false));
@@ -75,7 +75,7 @@ public class narratorDialogue : MonoBehaviour
         else
         {
             while (aIcon.color.a > 0) {
-                aIcon.color = aIcon.color - new Color(0, 0, 0, 0.003f);
+                aIcon.color = aIcon.color - new Color(0, 0, 0, 1f * Time.deltaTime);
                 yield return null;
             }
             

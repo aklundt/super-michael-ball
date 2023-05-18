@@ -24,11 +24,13 @@ public class spin : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        collision.gameObject.transform.SetParent(transform);
+        collision.gameObject.transform.localScale = Vector3.one;
+        collision.gameObject.transform.SetParent(transform, true);
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        collision.gameObject.transform.SetParent(null);
+        collision.gameObject.transform.SetParent(null, true);
+        collision.gameObject.transform.localScale = Vector3.one;
     }
 }
