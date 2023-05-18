@@ -128,6 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13475035fcd4f3945b5f2cf0d744ce76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerAudioSource: {fileID: 0}
   michaelNoises:
   - {fileID: 8300000, guid: ac54c2bc67f654c4abeb817dbbe9b46e, type: 3}
   - {fileID: 8300000, guid: a624da619dd8b88448e59fce4892065d, type: 3}
@@ -156,7 +157,7 @@ AudioSource:
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0

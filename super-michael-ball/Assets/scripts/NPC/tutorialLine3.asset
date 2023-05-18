@@ -16,8 +16,6 @@ MonoBehaviour:
   - The angle that you bounce onto surfaces with matters too!
   - Think of your round mass as a rubber ball.
   - Here, let's try what you just did without the guardrails!
-  - 'If you fall you''ll be teleported back up to the start.
-
-    Don''t forget to
-    use A + Right Trigger or Shift + R to restart if you get stuck.'
+  - If you fall you'll be teleported back up to the start.
+  - Don't forget to use A + Right Trigger or Shift + R to restart if you get stuck.
   actorName: Narrator
