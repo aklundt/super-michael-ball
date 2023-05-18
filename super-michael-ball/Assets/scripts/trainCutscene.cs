@@ -67,6 +67,7 @@ public class trainCutscene : MonoBehaviour
             yield return null;
         }
         lookAtPlayer = true;
+        gameManager.levelFinished = true;
         yield return new WaitForSeconds(.5f);
         StartCoroutine(trainMoving());
         StartCoroutine(endCutscene());

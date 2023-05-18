@@ -196,46 +196,53 @@ public class gameManager : MonoBehaviour
     // optional fade in, resetting of player, and fade out that occur in that order
     // better than having a fadeIn method and fadeOut method since they need to communicate to know when to start video
     public IEnumerator transitionStatic(bool fadeIn, bool reset, bool fadeOut) {
-        if (fadeIn) {
-            staticIn.Play();
-            yield return new WaitForSeconds(0.5f); cameraWhite.SetActive(false);
-            cameraWhite.SetActive(true);
-            while (staticIn.isPlaying)
+        if (!levelFinished) {
+            if (fadeIn)
             {
-                yield return null;
+                staticIn.Play();
+                yield return new WaitForSeconds(0.5f); cameraWhite.SetActive(false);
+                cameraWhite.SetActive(true);
+                while (staticIn.isPlaying)
+                {
+                    yield return null;
+                }
             }
-        }
-        if (reset) { resetPlayer(); }
-        if (fadeOut) {
-            staticOut.Prepare();
-            while (!staticOut.isPrepared) {
-                yield return new WaitForFixedUpdate();
-            }
-            staticOut.Play();
-            staticOut.frame = 0;
-            // hide white ball around camera that makes transition seamless after the video starts playing.
-            // show timer for same reason
-            while (staticOut.frame < 1) {
-                yield return null;
-            }
+            if (reset) { resetPlayer(); }
+            if (fadeOut)
+            {
+                staticOut.Prepare();
+                while (!staticOut.isPrepared)
+                {
+                    yield return new WaitForFixedUpdate();
+                }
+                staticOut.Play();
+                staticOut.frame = 0;
+                // hide white ball around camera that makes transition seamless after the video starts playing.
+                // show timer for same reason
+                while (staticOut.frame < 1)
+                {
+                    yield return null;
+                }
 
-            if (timer != null)
-            {
-                timer.gameObject.SetActive(true);
-            }
+                if (timer != null)
+                {
+                    timer.gameObject.SetActive(true);
+                }
 
-            // hide staticIn
-            staticIn.frame = 0;
-            staticInRenderer.Release();
-            yield return new WaitForSeconds(0.1f);
-            cameraWhite.SetActive(false);
-            while (staticOut.isPlaying)
-            {
-                yield return null;
+                // hide staticIn
+                staticIn.frame = 0;
+                staticInRenderer.Release();
+                yield return new WaitForSeconds(0.05f);
+                cameraWhite.SetActive(false);
+                while (staticOut.isPlaying)
+                {
+                    yield return null;
+                }
+                staticOutRenderer.Release();
             }
-            staticOutRenderer.Release();
+            yield return null;
         }
-        yield return null;
+        
     }
 
     public string toReadableTime(float timeInSeconds)
