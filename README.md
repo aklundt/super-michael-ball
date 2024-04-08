@@ -1,12 +1,12 @@
 # super-michael-ball
 
 ## ABOUT
-Francis Tuttle Technology Center Junior Game Dev Project.  
+Francis Tuttle Computer Science Academy Junior Year Game Dev Project.  
 About a little boy named Michael. He loooooves food!  
 Made over the course of two and a half months by a team of two: Grayson Smallwood and Andrew Klundt.
 
 This game functions like an airier version of Nintendo's Super Monkey Ball.  
-But in this game, you roll around as a fat guy looking for his lost cat.  
+But in this game, you roll around as a guy looking for his lost cat.  
 The game progresses by beating pre-made levels with a fridge at the end for Michael to gorge himself with!
 
 ## TRAILER
