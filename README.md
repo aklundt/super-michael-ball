@@ -3,7 +3,7 @@
 ## ABOUT
 Francis Tuttle Technology Center Junior Game Dev Project.  
 About a little boy named Michael. He loooooves food!  
-Made over the course of two and a half months by a team of two.
+Made over the course of two and a half months by a team of two: Grayson Smallwood and Andrew Klundt.
 
 This game functions like an airier version of Nintendo's Super Monkey Ball.  
 But in this game, you roll around as a fat guy looking for his lost cat.  
@@ -13,7 +13,7 @@ The game progresses by beating pre-made levels with a fridge at the end for Mich
 **TURN AUDIO ON**  
 Track Name : MF DOOM - One Beer
 
-https://github.com/graysmal/super-michael-ball/assets/128539509/163ec3ce-3bf2-4377-b930-6e2019b50aac
+https://github.com/graysmal/super-michael-ball/assets/128539509/66336e9b-3367-46df-b76b-b3f5b4de8906
 
 ## CONTROLS
 WASD to move  
