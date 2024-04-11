@@ -9,6 +9,8 @@ This game functions like an airier version of Nintendo's Super Monkey Ball.
 But in this game, you roll around as a guy looking for his lost cat.  
 The game progresses by beating pre-made levels with a fridge at the end for Michael to gorge himself with!
 
+All assets were custom-made.
+
 ## TRAILER
 **TURN AUDIO ON**  
 Track Name : MF DOOM - One Beer
