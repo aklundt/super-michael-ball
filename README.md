@@ -1,5 +1,8 @@
 # super-michael-ball
 
+<img width="255" alt="super-michael-ball" src="https://github.com/graysmal/super-michael-ball/assets/128539509/fe3d2e66-4682-4b20-8f7f-ddb4df5c99b0">
+
+
 ## ABOUT
 Francis Tuttle Computer Science Academy Junior Year Game Dev Project.  
 About a little boy named Michael. He loooooves food!  
